@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #E6DfC6; 
+        }
+        menu {
+            position: absolute; 
+            top: 10px; 
+            width: 100%; 
+            padding: 10px 0; 
+            text-align: right; 
+        }
+        menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: right; 
+        }
+        menu ul li {
+            display: inline; 
+            margin-right: 100px; 
+        }
+    </style>
+    {% block stylesheets %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% endblock %}
+    {% block head %}
+</head>
+<body>
+    <img src="{{ asset('logo.png') }}" alt="Le logo du site"/>
+    <menu>
+        <ul>
+            <li>Accueil</li>
+            <li>Actualites</li>
+            <li>Regles</li>
+             <li><a href="{{ path('app_produit_index') }}">Boutique</a></li>
+            <li>Login</li>
+        </ul>
+    </menu>
+    {% endblock %}
+
+    {% block body %}
+    
+    {% endblock %}
+</body>
 </html>
