@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #BBBBBB;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        color: #fff;
+    }
+
+    p {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    p a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    p a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Connexion</h1>
+
+    <form method="post">
+        <div>
+            <label for="mail">Mail de l'utilisateur </label>
+            <input type="text" name="email"  required>
+        </div>
+        <div>
+            <label for="password">Mot de passe </label>
+            <input type="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Se connecter</button>
+        </div>
+    </form>
+
+    <p>Pas encore inscrit ? S'inscrire ici</a>.</p>
+</div>
+{% endblock %}

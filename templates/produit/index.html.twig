@@ -2,44 +2,71 @@
 
 {% block title %}Boutique{% endblock %}
 
-   
+{% block stylesheets %}
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .products-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .card {
+        flex: 0 0 calc(25% - 20px); /* Pour afficher quatre cartes par ligne */
+        margin-bottom: 20px;
+        background-color: #fff; /* Ajoutez une couleur de fond pour les cartes */
+        border-radius: 8px; /* Ajoutez une bordure arrondie aux cartes */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre légère */
+    }
+
+    .card-body {
+        padding: 20px; /* Ajoutez un peu d'espacement à l'intérieur des cartes */
+    }
+
+    .lien_produit {
+            text-decoration: none;
+            color: inherit; 
+    }
+
+    .lien_produit:hover {
+        text-decoration: none; 
+        font-weight: bold;
+    }
+
+    @media (max-width: 992px) {
+        .card {
+            flex: 0 0 calc(50% - 20px); /* Pour afficher deux cartes par ligne sur les écrans de taille moyenne */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            flex: 0 0 calc(100% - 20px); /* Pour afficher une seule carte par ligne sur les petits écrans */
+        }
+    }
+</style>
+{% endblock %}
+
 {% block body %}
-
-    <h1>Boutique</h1>
-        <style>
-            body {
-                background-color: #E6DFC6 ; 
-            }
-            h1{
-                text-align: center;
-            }   
-        </style>
-
-    
-    <table class="table">
-        <thead>
-            <tr>
-
-                <th>Nom</th>
-                <th>Prix</th>
-
-
-            </tr>
-        </thead>
-        <tbody>
+<h1>Boutique</h1>
+<svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 11V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V10.9673M10.4 21H13.6C15.8402 21 16.9603 21 17.816 20.564C18.5686 20.1805 19.1805 19.5686 19.564 18.816C20 17.9603 20 16.8402 20 14.6V12.2C20 11.0799 20 10.5198 19.782 10.092C19.5903 9.71569 19.2843 9.40973 18.908 9.21799C18.4802 9 17.9201 9 16.8 9H7.2C6.0799 9 5.51984 9 5.09202 9.21799C4.71569 9.40973 4.40973 9.71569 4.21799 10.092C4 10.5198 4 11.0799 4 12.2V14.6C4 16.8402 4 17.9603 4.43597 18.816C4.81947 19.5686 5.43139 20.1805 6.18404 20.564C7.03968 21 8.15979 21 10.4 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+<div class="container">
+    <div class="products-container">
         {% for produit in produits %}
-            <tr>
-
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.prix }} €</td>
-                
-            </tr>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.nom }}</h5>
+                <p class="card-text">{{ produit.prix }} €</p>
+                <a class="lien_produit" href="{{ path('app_produit_show', {'id': produit.id}) }}">Voir le produit</a>
+            </div>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="5">Aucun produit</td>
-            </tr>
+        <p>Aucun produit disponible pour le moment.</p>
         {% endfor %}
-        </tbody>
-    </table>
-
+    </div>
+</div>
 {% endblock %}

@@ -1,23 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block stylesheets %}
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .product-details {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-details table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .product-details table th {
+        text-align: left;
+        padding: 8px;
+        background-color: #e0e0e0;
+    }
+
+    .product-details table td {
+        padding: 8px;
+    }
+
+    .product-details a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .product-details a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
+<div class="product-details">
+    <h1>{{ produit.Nom }}</h1>
 
-    <table class="table">
+    <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ produit.Nom }}</td>
-            </tr>
-            <tr>
                 <th>Prix</th>
-                <td>{{ produit.Prix }}</td>
+                <td>{{ produit.Prix }} €</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -26,9 +62,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
-
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+    <a href="{{ path('app_produit_index') }}">Retour à la boutique</a>
 
     {{ include('produit/_delete_form.html.twig') }}
+</div>
 {% endblock %}

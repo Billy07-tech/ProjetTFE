@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}CheckersElite{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     <style>
         body {
@@ -26,29 +26,41 @@
         }
         menu ul li {
             display: inline; 
-            margin-right: 100px; 
+            margin-right: 110px; 
+        }
+        menu ul li a {
+            text-decoration: none;
+            color: inherit; 
+        }
+        menu ul li a:hover {
+            text-decoration: none; 
+            font-weight: bold;
         }
     </style>
     {% block stylesheets %}
-
     {% endblock %}
+    
     {% block head %}
 </head>
 <body>
-    <img src="{{ asset('logo.png') }}" alt="Le logo du site"/>
+    <a href="{{ path('app_accueil') }}"><img src="{{ asset('logo.png') }}" alt="Le logo du site"/>
     <menu>
         <ul>
-            <li>Accueil</li>
+            <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
             <li>Actualites</li>
-            <li>Regles</li>
-             <li><a href="{{ path('app_produit_index') }}">Boutique</a></li>
-            <li>Login</li>
+            <li><a href="{{ path('app_regle') }}">Regles</a></li>
+            <li><a href="{{ path('app_produit_index') }}">Boutique</a></li>
+            <li><a href="{{ path('app_login') }}">Login</a></li>
         </ul>
     </menu>
     {% endblock %}
 
     {% block body %}
-    
+
+    {% endblock %}
+
+    {% block foot %}
+    <li><a href="{{ path('app_assistance') }}">Assistance</a></li>
     {% endblock %}
 </body>
 </html>
