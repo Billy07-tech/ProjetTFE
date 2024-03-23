@@ -11,6 +11,7 @@
             padding: 0; 
             background-color: #E6DfC6; 
         }
+        
         menu {
             position: absolute; 
             top: 10px; 
@@ -36,6 +37,17 @@
             text-decoration: none; 
             font-weight: bold;
         }
+        .assistance {
+            text-decoration: none;
+            color: inherit; 
+            position: absolute; 
+            bottom: 30px; 
+            left: 30px; 
+        }
+        .assistance:hover {
+            text-decoration: none; 
+            font-weight: bold;
+        }
     </style>
     {% block stylesheets %}
     {% endblock %}
@@ -43,7 +55,8 @@
     {% block head %}
 </head>
 <body>
-    <a href="{{ path('app_accueil') }}"><img src="{{ asset('logo.png') }}" alt="Le logo du site"/>
+
+    <a href="{{ path('app_accueil') }}"><img src="{{ asset('logo.png') }}" alt="Le logo du site"/></a>
     <menu>
         <ul>
             <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
@@ -60,7 +73,9 @@
     {% endblock %}
 
     {% block foot %}
-    <li><a href="{{ path('app_assistance') }}">Assistance</a></li>
+    <div>
+        <a class="assistance" href="{{ path('app_assistance') }}">Assistance</a>
+    </div>
     {% endblock %}
 </body>
 </html>
