@@ -10,7 +10,7 @@
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f9f9f9;
+        background-color: #FFFFFF;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
@@ -31,16 +31,31 @@
         padding: 8px;
     }
 
-    .product-details a {
-        display: block;
+    .back {
         text-align: center;
-        margin-top: 20px;
         text-decoration: none;
-        color: #007bff;
+        color: inherit;
     }
 
-    .product-details a:hover {
-        text-decoration: underline;
+    .back:hover {
+        text-decoration: none; 
+        font-weight: bold;
+    }
+
+    .add-to-cart-form {
+        text-align: center;
+    }
+
+    .add-to-cart-form button {
+        padding: 10px 20px;
+        background-color: #BBBBBB;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-to-cart-form button:hover {
+        color: white;
     }
 </style>
 {% endblock %}
@@ -62,8 +77,13 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_index') }}">Retour à la boutique</a>
-
     {{ include('produit/_delete_form.html.twig') }}
+
+    <div class="add-to-cart-form">
+            <button type="submit">Ajouter au panier</button>
+        </form>
+    </div>
 </div>
+
+<a class="back" href="{{ path('app_produit_index') }}">Retour à la boutique</a>
 {% endblock %}
