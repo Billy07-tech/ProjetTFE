@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block stylesheets %}
+        <style>
+            .image-container {
+                display: flex; 
+                justify-content: flex-end; 
+                align-items: center; 
+                height: 100vh; 
+                margin-right: 50px; 
+            }
+        </style>
+    {% endblock %}
+    <body>
+        <div class="image-container">
+            <img src="{{ asset('plateau.PNG') }}" alt="Le plateau du jeu de checkers"/>
+        </div>
+    </body>
+{% endblock %}
