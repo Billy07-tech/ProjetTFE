@@ -4,16 +4,37 @@
     {% block stylesheets %}
         <style>
             .image-container {
-                display: flex; 
-                justify-content: flex-end; 
-                align-items: center; 
-                height: 100vh; 
-                margin-right: 50px; 
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                height: 110vh;
+                margin-right: 50px;
+            }
+            .partie-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-right: 300px; 
+            }
+            .partie {
+                text-decoration: none;
+                color: inherit;
+                margin-bottom: 160px;
+                font-size: 40px;
+            }
+            .partie:hover {
+                text-decoration: none;
+                font-weight: bold;
             }
         </style>
     {% endblock %}
     <body>
         <div class="image-container">
+            <div class="partie-container">
+                <a class="partie" href="#">JOUER AVEC UN AMI</a>
+                <a class="partie" href="#">JOUER EN LIGNE</a>
+                <a class="partie" href="#">JOUER EN LOCAL</a>
+            </div>
             <img src="{{ asset('plateau.PNG') }}" alt="Le plateau du jeu de checkers"/>
         </div>
     </body>

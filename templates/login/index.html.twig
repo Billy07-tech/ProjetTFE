@@ -8,7 +8,7 @@
         max-width: 400px;
         margin: 0 auto;
         padding: 30px;
-        background-color: #fff;
+        background-color: #FFFFFF;
         border-radius: 8px;
     }
 
@@ -35,7 +35,7 @@
         box-sizing: border-box;
     }
 
-    button[type="submit"] {
+    .connexion {
         width: 100%;
         padding: 10px;
         background-color: #BBBBBB;
@@ -44,8 +44,8 @@
         cursor: pointer;
     }
 
-    button[type="submit"]:hover {
-        color: #fff;
+    .connexion:hover {
+        color: #FFFFFF;
     }
 
     p {
@@ -53,14 +53,7 @@
         text-align: center;
     }
 
-    p a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    p a:hover {
-        text-decoration: underline;
-    }
+    
 </style>
 {% endblock %}
 
@@ -78,10 +71,10 @@
             <input type="password" name="password" required>
         </div>
         <div>
-            <button type="submit">Se connecter</button>
+            <button class="connexion"type="submit">Se connecter</button>
         </div>
     </form>
 
-    <p>Pas encore inscrit ? S'inscrire ici</a>.</p>
+    <p>Pas encore inscrit ? S'inscrire ici.</p>
 </div>
 {% endblock %}

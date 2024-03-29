@@ -6,14 +6,13 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     <style>
         body {
-            font-family: 'Roboto', sans-serif; 
+            font-family: 'Roboto';
             margin: 0; 
             padding: 0; 
             background-color: #E6DfC6; 
-            position: relative; /* Ajout de cette ligne pour positionner correctement le lien d'assistance */
-            min-height: 100vh; /* Permet de prendre toute la hauteur de la fenêtre visible */
+            position: relative; 
+            min-height: 100vh; 
         }
-        
         menu {
             position: absolute; 
             top: 10px; 
@@ -44,7 +43,7 @@
             color: inherit;
             position: absolute; 
             bottom: 10px; 
-            left: 10px;
+            left: 20px;
         }
         .assistance:hover {
             text-decoration: none; 
@@ -61,11 +60,11 @@
     <a href="{{ path('app_accueil') }}"><img src="{{ asset('logo.png') }}" alt="Le logo du site"/></a>
     <menu>
         <ul>
-            <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
-            <li>Actualites</li>
-            <li><a href="{{ path('app_regle') }}">Regles</a></li>
-            <li><a href="{{ path('app_produit_index') }}">Boutique</a></li>
-            <li><a href="{{ path('app_login') }}">Login</a></li>
+            <li><a href="{{ path('app_accueil') }}">ACCUEIL</a></li>
+            <li>ACTUALITES</li>
+            <li><a href="{{ path('app_regle') }}">REGLES</a></li>
+            <li><a href="{{ path('app_produit_index') }}">BOUTIQUE</a></li>
+            <li><a href="{{ path('app_login') }}">LOGIN</a></li>
         </ul>
     </menu>
     {% endblock %}
@@ -76,7 +75,7 @@
 
     {% block foot %}
     <div>
-        <a class="assistance" href="{{ path('app_assistance') }}">Assistance</a>
+        <a class="assistance" href="{{ path('app_assistance') }}">ASSISTANCE</a>
     </div>
     {% endblock %}
 </body>
