@@ -61,18 +61,22 @@
 <div class="container">
     <h1>Connexion</h1>
 
-    <form method="post">
+    <form   action="{{ path('app_login') }}" method="post">
         <div>
-            <label for="mail">Mail de l'utilisateur </label>
-            <input type="text" name="email"  required>
+            <label for="mail">Email</label>
+            <input type="text" name="_email" value="{{ lastUserMail }}"  required>
         </div>
         <div>
-            <label for="password">Mot de passe </label>
-            <input type="password" name="password" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="_password" required>
         </div>
         <div>
-            <button class="connexion"type="submit">Se connecter</button>
+            <button class="connexion" type="submit">Se connecter</button>
         </div>
+        <input type="hidden" name="_target_path" value='/'>
+        
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
     </form>
 
     <p>Pas encore inscrit ? S'inscrire ici.</p>

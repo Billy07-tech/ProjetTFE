@@ -64,7 +64,14 @@
             <li>ACTUALITES</li>
             <li><a href="{{ path('app_regle') }}">REGLES</a></li>
             <li><a href="{{ path('app_produit_index') }}">BOUTIQUE</a></li>
-            <li><a href="{{ path('app_login') }}">LOGIN</a></li>
+            
+            {# Vérifier si l'utilisateur est connecté #}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="/logout">LOGOUT</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">LOGIN</a></li>
+            {% endif %}
+            
         </ul>
     </menu>
     {% endblock %}
