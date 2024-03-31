@@ -52,7 +52,14 @@
         margin-top: 10px;
         text-align: center;
     }
-
+    .lien {
+        text-decoration: none; 
+        color: inherit;
+    }
+    .lien:hover {
+        text-decoration: none; 
+        font-weight: bold;
+    }
     
 </style>
 {% endblock %}
@@ -79,6 +86,6 @@
 
     </form>
 
-    <p>Pas encore inscrit ? S'inscrire ici.</p>
+    <p>Pas encore inscrit ? S'inscrire <a class="lien" href="{{ path('app_inscription') }}">ici</a>.</p> 
 </div>
 {% endblock %}
