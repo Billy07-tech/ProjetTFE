@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .inscription {
+        width: 100%;
+        padding: 10px;
+        background-color: #BBBBBB;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .inscription:hover {
+        color: #FFFFFF;
+    }
+
+    p {
+        margin-top: 10px;
+        text-align: center;
+    }
+    .lien {
+        text-decoration: none; 
+        color: inherit;
+    }
+    .lien:hover {
+        text-decoration: none; 
+        font-weight: bold;
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #BBBBBB;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        color: #FFFFFF;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Inscription</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        <div class="form-row">
+            <div class="form-group">
+                {{ form_row(registrationForm.pseudo) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.prenom) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                {{ form_row(registrationForm.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.email) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                {{ form_row(registrationForm.password) }}
+            </div>
+        </div>
+        <button type="submit" class="btn">Inscription</button>
+    {{ form_end(registrationForm) }}
+    <p>Déjà inscrit ? Connecte toi <a class="lien" href="{{ path('app_login') }}">ici</a>.</p> 
+</div>
+
+{% endblock %}
