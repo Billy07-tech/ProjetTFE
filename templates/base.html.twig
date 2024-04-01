@@ -67,6 +67,9 @@
             
             {# Vérifier si l'utilisateur est connecté #}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_administrateur') }}">ADMIN</a></li>
+                {% endif %}
                 <li><a href="/logout">LOGOUT</a></li>
             {% else %}
                 <li><a href="{{ path('app_login') }}">LOGIN</a></li>
@@ -75,15 +78,20 @@
         </ul>
     </menu>
     {% endblock %}
-
     {% block body %}
-
+        {% if is_granted('ROLE_ADMIN') %}
+            {# Contenu normal de la page #}
+            {% block content %}{% endblock %}
+        {% else %}
+            <p>Vous n'avez pas la permission d'accéder à cette page.</p>
+        {% endif %}
     {% endblock %}
 
     {% block foot %}
     <div>
         <a class="assistance" href="{{ path('app_assistance') }}">ASSISTANCE</a>
     </div>
+    
     {% endblock %}
 </body>
 </html>

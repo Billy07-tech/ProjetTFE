@@ -33,6 +33,8 @@ class RegistrationController extends AbstractController
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        
+        $user->setRoles(['ROLE_USER']);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Hachage du mot de passe de l'utilisateur
