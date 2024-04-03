@@ -3,7 +3,17 @@
 {% block title %}Boutique{% endblock %}
 
 {% block stylesheets %}
+{{ parent() }}
 <style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 20px;
+    }
+
     h1 {
         text-align: center;
     }
@@ -11,63 +21,70 @@
     .products-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 20px;
+        justify-content: center;
+        gap: 20px;
     }
 
     .card {
-        flex: 0 0 calc(25% - 20px); 
+        flex: 0 0 calc(25% - 40px);
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
-        background-color: #fff; 
-        border-radius: 8px; 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     }
 
     .card-body {
-        padding: 20px; 
+        padding: 20px;
+    }
+
+    .card-title {
+        text-align: center;
     }
 
     .lien_produit {
-            text-decoration: none;
-            color: inherit; 
+        text-decoration: none;
+        color: inherit;
     }
 
     .lien_produit:hover {
-        text-decoration: none; 
+        text-decoration: none;
         font-weight: bold;
     }
 
-    @media (max-width: 992px) {
-        .card {
-            flex: 0 0 calc(50% - 20px); 
-        }
+    .card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
     }
 
-    @media (max-width: 768px) {
-        .card {
-            flex: 0 0 calc(100% - 20px); 
-        }
+    .pagination {
+        margin-top: 20px;
     }
 </style>
 {% endblock %}
 
 {% block body %}
 <h1>Boutique</h1>
-<svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 11V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V10.9673M10.4 21H13.6C15.8402 21 16.9603 21 17.816 20.564C18.5686 20.1805 19.1805 19.5686 19.564 18.816C20 17.9603 20 16.8402 20 14.6V12.2C20 11.0799 20 10.5198 19.782 10.092C19.5903 9.71569 19.2843 9.40973 18.908 9.21799C18.4802 9 17.9201 9 16.8 9H7.2C6.0799 9 5.51984 9 5.09202 9.21799C4.71569 9.40973 4.40973 9.71569 4.21799 10.092C4 10.5198 4 11.0799 4 12.2V14.6C4 16.8402 4 17.9603 4.43597 18.816C4.81947 19.5686 5.43139 20.1805 6.18404 20.564C7.03968 21 8.15979 21 10.4 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
 <div class="container">
     <div class="products-container">
-        {% for produit in produits %}
+        {% for pagination in paginations %}
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{ produit.nom }}</h5>
-                <p class="card-text">{{ produit.prix }} €</p>
-                <a class="lien_produit" href="{{ path('app_produit_show', {'id': produit.id}) }}">Voir le produit</a>
+                <h5 class="card-title">{{ pagination.nom }}</h5>
+                <img src="{{ vich_uploader_asset(pagination, 'imageFile')}}" alt="{{ pagination.nom }}">
+                <p class="card-text">{{ pagination.prix }} €</p>
+                <br> 
+                <a class="lien_produit" href="{{ path('app_produit_show', {'id': pagination.id}) }}">Voir le produit</a>
             </div>
         </div>
         {% else %}
         <p>Aucun produit disponible pour le moment.</p>
         {% endfor %}
     </div>
-    <a  href="{{ path('app_produit_new') }}">Nouveau produit</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_produit_new') }}">Nouveau produit</a>
+    {% endif %}
 </div>
+{{ knp_pagination_render(paginations) }}
 {% endblock %}

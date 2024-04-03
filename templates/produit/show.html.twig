@@ -1,11 +1,7 @@
 {% extends 'base.html.twig' %}
-
 {% block stylesheets %}
+{{ parent() }}
 <style>
-    h1 {
-        text-align: center;
-    }
-
     .product-details {
         max-width: 600px;
         margin: 0 auto;
@@ -15,38 +11,44 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+
+    .product-details h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
     .product-details table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
     }
 
-    .product-details table th {
+    .product-details th,
+    .product-details td {
+        padding: 8px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    .product-details th {
         text-align: left;
-        padding: 8px;
-        background-color: #e0e0e0;
+        background-color: #F5F5F5;
     }
 
-    .product-details table td {
-        padding: 8px;
+    /* Image */
+    .product-details img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
     }
 
-    .back {
-        text-align: center;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .back:hover {
-        text-decoration: none; 
-        font-weight: bold;
-    }
-
-    .add-to-cart-form {
+    .product-details .add-to-cart-form {
         text-align: center;
     }
 
-    .add-to-cart-form button {
+    .product-details .add-to-cart-form button {
         padding: 10px 20px;
         background-color: #BBBBBB;
         border: none;
@@ -54,8 +56,29 @@
         cursor: pointer;
     }
 
-    .add-to-cart-form button:hover {
+    .product-details .add-to-cart-form button:hover {
         color: white;
+    }
+
+    .product-details .back {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: #007BFF;
+        margin-top: 20px;
+    }
+
+    .product-details .back:hover {
+        text-decoration: underline;
+    }
+    .back{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .back:hover{
+        text-decoration: none;
+        font-weight: bold
     }
 </style>
 {% endblock %}
@@ -74,14 +97,24 @@
                 <th>Description</th>
                 <td>{{ produit.description }}</td>
             </tr>
+
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(produit, 'imageFile')}}"></td>
+            </tr>
+
+
         </tbody>
     </table>
 
-    {{ include('produit/_delete_form.html.twig') }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('produit/_delete_form.html.twig') }}
+    {% endif %}
+
 
     <div class="add-to-cart-form">
-            <button type="submit">Ajouter au panier</button>
-        </form>
+        <button type="submit">Ajouter au panier</button>
     </div>
 </div>
 

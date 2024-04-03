@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ProduitType extends AbstractType
 {
@@ -26,6 +27,10 @@ class ProduitType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description du produit',
                 'attr' => ['placeholder' => 'Entrez une description du produit']
+            ])
+            ->add('imageFile', VichFileType::class, [
+                'label' => 'Image du produit',
+                'required' => false ,
             ])
         ;
     }
