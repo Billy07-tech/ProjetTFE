@@ -6,92 +6,95 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     <style>
         body {
-            font-family: 'Roboto';
-            margin: 0; 
-            padding: 0; 
-            background-color: #E6DfC6; 
-            position: relative; 
-            min-height: 100vh; 
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E6DfC6;
+            position: relative;
+            min-height: 100vh;
         }
+
         menu {
-            position: absolute; 
-            top: 10px; 
-            width: 100%; 
-            padding: 10px 0; 
-            text-align: right; 
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            text-align: right;
         }
+
         menu ul {
             list-style: none;
             margin: 0;
             padding: 0;
-            text-align: right; 
+            text-align: right;
         }
+
         menu ul li {
-            display: inline; 
-            margin-right: 110px; 
+            display: inline;
+            margin-right: 50px;
         }
+
         menu ul li a {
             text-decoration: none;
-            color: inherit; 
+            color: inherit;
         }
+
         menu ul li a:hover {
-            text-decoration: none; 
             font-weight: bold;
         }
+
         .assistance {
             text-decoration: none;
             color: inherit;
-            position: absolute; 
-            bottom: 10px; 
+            position: absolute;
+            bottom: 10px;
             left: 20px;
         }
+
         .assistance:hover {
-            text-decoration: none; 
             font-weight: bold;
         }
     </style>
-    {% block stylesheets %}
-    {% endblock %}
-    
-    {% block head %}
+    {% block stylesheets %}{% endblock %}
 </head>
 <body>
 
-    <a href="{{ path('app_accueil') }}"><img src="{{ asset('logo.png') }}" alt="Le logo du site"/></a>
+    <a href="{{ path('app_accueil') }}">
+        <img src="{{ asset('logo.png') }}" alt="Logo du site"/>
+    </a>
+
     <menu>
         <ul>
             <li><a href="{{ path('app_accueil') }}">ACCUEIL</a></li>
             <li>ACTUALITES</li>
             <li><a href="{{ path('app_regle') }}">REGLES</a></li>
             <li><a href="{{ path('app_produit_index') }}">BOUTIQUE</a></li>
-            
-            {# Vérifier si l'utilisateur est connecté #}
+
+            {# Lien Profil visible uniquement si connecté #}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="{{ path('app_profil') }}">PROFIL</a></li>
+
+                {# Lien Admin visible uniquement pour ROLE_ADMIN #}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_administrateur') }}">ADMIN</a></li>
                 {% endif %}
-                <li><a href="/logout">LOGOUT</a></li>
+
+                {# Lien Logout #}
+                <li><a href="/logout">SE DÉCONNECTER</a></li>
             {% else %}
-                <li><a href="{{ path('app_login') }}">LOGIN</a></li>
+                <li><a href="{{ path('app_login') }}">SE CONNECTER</a></li>
             {% endif %}
-            
         </ul>
     </menu>
-    {% endblock %}
-    {% block body %}
-        {% if is_granted('ROLE_ADMIN') %}
-            {# Contenu normal de la page #}
-            {% block content %}{% endblock %}
-        {% else %}
-            <p>Vous n'avez pas la permission d'accéder à cette page.</p>
-        {% endif %}
-    {% endblock %}
 
-    {% block foot %}
+    <div class="content">
+        {% block body %}{% endblock %}
+    </div>
+
     <div>
         <a class="assistance" href="{{ path('app_assistance') }}">ASSISTANCE</a>
     </div>
-    
-    {% endblock %}
+
+    {% block foot %}{% endblock %}
 </body>
 </html>

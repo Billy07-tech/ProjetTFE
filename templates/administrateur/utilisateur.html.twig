@@ -44,6 +44,19 @@
         .btn-info:hover {
             color: #fff;
         }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
     </style>
 {% endblock %}
 
@@ -52,6 +65,11 @@
         <div class="row">
             <div class="col">
                 <h1 class="text-center mb-4">Liste des Utilisateurs</h1>
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+
                 <div class="table-responsive">
                     <table class="table">
                         <thead class="thead-dark">
@@ -75,7 +93,14 @@
                                     <td>{{ utilisateur.email }}</td>
                                     <td>{{ utilisateur.roles|join(', ') }}</td>
                                     <td>
-                                        <p>Bannir</p>
+                                        <form 
+                                            action="{{ path('app_utilisateur_supprimer', {'id': utilisateur.id}) }}" 
+                                            method="post" 
+                                            onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');"
+                                        >
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+                                            <button type="submit" class="btn btn-danger">Bannir</button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% else %}
