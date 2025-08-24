@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Réussi{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Merci pour votre achat !</h1>
+    <p>Votre paiement a été accepté.</p>
+
+    <h2>Résumé de votre commande :</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.produit.nom }}</td>
+                    <td>{{ item.quantite }}</td>
+                    <td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2"><strong>Total :</strong></td>
+                <td><strong>{{ total|number_format(2, '.', ',') }} €</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_index') }}" class="btn btn-primary">Retour à la boutique</a>
+</div>
+{% endblock %}

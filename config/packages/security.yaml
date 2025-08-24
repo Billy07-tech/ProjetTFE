@@ -38,6 +38,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/panier, roles: ROLE_USER }
 
 parameters:
     avatars_directory: '%kernel.project_dir%/public/uploads/avatars'

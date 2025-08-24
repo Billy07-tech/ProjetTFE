@@ -54,6 +54,11 @@
         .assistance:hover {
             font-weight: bold;
         }
+        .cart-icon {
+        width: 32px;   
+        height: 32px;  
+        vertical-align: middle;
+        }
     </style>
     {% block stylesheets %}{% endblock %}
 </head>
@@ -70,22 +75,29 @@
             <li><a href="{{ path('app_regle') }}">REGLES</a></li>
             <li><a href="{{ path('app_produit_index') }}">BOUTIQUE</a></li>
 
-            {# Lien Profil visible uniquement si connecté #}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li><a href="{{ path('app_profil') }}">PROFIL</a></li>
 
-                {# Lien Admin visible uniquement pour ROLE_ADMIN #}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_administrateur') }}">ADMIN</a></li>
                 {% endif %}
 
-                {# Lien Logout #}
-                <li><a href="/logout">SE DÉCONNECTER</a></li>
+                <li>
+                    <a href="{{ path('panier_index') }}" class="panier-link">
+                        <img src="{{ asset('logo/cart.png') }}" alt="Panier" class="cart-icon">
+                        {% if app.user.panier %}
+                            <span class="cart-count">{{ app.user.panier.items|length }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+
+                <li><a href="/logout">SE DÉCONNECTER</a></li>  
             {% else %}
                 <li><a href="{{ path('app_login') }}">SE CONNECTER</a></li>
             {% endif %}
         </ul>
     </menu>
+
 
     <div class="content">
         {% block body %}{% endblock %}

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\Table(name:"utilisateurs")]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,6 +31,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Panier::class, cascade: ['persist', 'remove'])]
+    private ?Panier $panier = null;
+    
 
     /**
      * @var list<string> The user roles
@@ -183,4 +188,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): self
+    {
+        $this->panier = $panier;
+        return $this;
+    }
+
 }
