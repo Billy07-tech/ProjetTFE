@@ -1,19 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paiement Réussi{% endblock %}
+{% block title %}Commande réussie{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .container.mt-5 {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        font-family: 'Roboto', sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2ecc71;
+        font-size: 2rem;
+    }
+
+    .order-info {
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 1.1rem;
+    }
+
+    table.table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table th, table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    table th {
+        background-color: #f8f8f8;
+        color: #555;
+        font-weight: 500;
+    }
+
+    table td {
+        color: #666;
+    }
+
+    .btn-home {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .btn-home:hover {
+        background-color: #2980b9;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Merci pour votre achat !</h1>
-    <p>Votre paiement a été accepté.</p>
+    <h1>Commande réussie ! 🎉</h1>
 
-    <h2>Résumé de votre commande :</h2>
+    <div class="order-info">
+        <p><strong>Numéro de commande :</strong> {{ commande.id }}</p>
+        <p><strong>Date :</strong> {{ commande.dateCommande|date('d/m/Y H:i') }}</p>
+        {% if commande.adresseLivraison %}
+            <p><strong>Adresse de livraison :</strong> {{ commande.adresseLivraison }}</p>
+        {% endif %}
+        <p><strong>Statut :</strong> {{ commande.status }}</p>
+    </div>
+
+    <p>Merci pour votre commande. Voici le récapitulatif :</p>
+
+    {% if items|length > 0 %}
     <table class="table">
         <thead>
             <tr>
                 <th>Produit</th>
                 <th>Quantité</th>
-                <th>Prix</th>
+                <th>Prix unitaire</th>
+                <th>Sous-total</th>
             </tr>
         </thead>
         <tbody>
@@ -21,16 +98,22 @@
                 <tr>
                     <td>{{ item.produit.nom }}</td>
                     <td>{{ item.quantite }}</td>
-                    <td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
+                    <td>{{ item.prix|number_format(2, '.', ',') }} €</td>
+                    <td>{{ (item.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
                 </tr>
             {% endfor %}
             <tr>
-                <td colspan="2"><strong>Total :</strong></td>
+                <td colspan="3"><strong>Total :</strong></td>
                 <td><strong>{{ total|number_format(2, '.', ',') }} €</strong></td>
             </tr>
         </tbody>
     </table>
+    {% else %}
+        <p>Aucun produit dans cette commande.</p>
+    {% endif %}
 
-    <a href="{{ path('app_produit_index') }}" class="btn btn-primary">Retour à la boutique</a>
+    <p>
+        <a href="{{ path('panier_index') }}" class="btn-home">Retour à l'accueil</a>
+    </p>
 </div>
 {% endblock %}

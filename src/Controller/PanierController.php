@@ -3,11 +3,16 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Entity\PanierItem;
+use App\Entity\Commande;
+use App\Entity\CommandeItem;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -125,64 +130,99 @@ class PanierController extends AbstractController
 
     // Paiement Stripe
     #[Route('/checkout', name: 'panier_checkout')]
-public function checkout(\App\Service\StripeService $stripeService)
-{
-    $user = $this->getUser();
-    if (!$user || !$user->getPanier() || count($user->getPanier()->getItems()) === 0) {
-        return $this->redirectToRoute('panier_index');
-    }
-
-    $lineItems = [];
-    foreach ($user->getPanier()->getItems() as $item) {
-        $produit = $item->getProduit();
-        if (!$produit) continue;
-
-        $lineItems[] = [
-            'price_data' => [
-                'currency' => 'eur',
-                'unit_amount' => intval($produit->getPrix() * 100), // en centimes
-                'product_data' => [
-                    'name' => $produit->getNom(),
-                ],
-            ],
-            'quantity' => $item->getQuantite(),
-        ];
-    }
-
-    $successUrl = $this->generateUrl('panier_succes', [], \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
-    $cancelUrl = $this->generateUrl('panier_index', [], \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
-
-    $session = $stripeService->createCheckoutSession($lineItems, $successUrl, $cancelUrl, [
-        'shipping_address_collection' => ['allowed_countries' => ['FR', 'BE', 'CH']], // Pays autorisés
-    ]);
-
-    return $this->redirect($session->url, 303);
-}
-
-
-    // Page de succès après paiement
-    #[Route('/succes', name: 'panier_succes')]
-    public function succes(EntityManagerInterface $em): Response
+    public function checkout(\App\Service\StripeService $stripeService)
     {
         $user = $this->getUser();
-        if (!$user || !$user->getPanier()) {
+        if (!$user || !$user->getPanier() || count($user->getPanier()->getItems()) === 0) {
             return $this->redirectToRoute('panier_index');
         }
 
-        $panier = $user->getPanier();
-        $items = $panier->getItems()->toArray();
+        $lineItems = [];
+        foreach ($user->getPanier()->getItems() as $item) {
+            $produit = $item->getProduit();
+            if (!$produit) continue;
 
-        // Vider le panier
-        foreach ($items as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'unit_amount' => intval($produit->getPrix() * 100),
+                    'product_data' => ['name' => $produit->getNom()],
+                ],
+                'quantity' => $item->getQuantite(),
+            ];
+        }
+
+        $successUrl = $this->generateUrl('panier_succes', [], \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+        $cancelUrl = $this->generateUrl('panier_index', [], \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $session = $stripeService->createCheckoutSession($lineItems, $successUrl, $cancelUrl, [
+            'shipping_address_collection' => ['allowed_countries' => ['FR', 'BE', 'CH']],
+        ]);
+
+        return $this->redirect($session->url, 303);
+    }
+
+    // Page succès après paiement
+    #[Route('/succes', name: 'panier_succes')]
+    public function succes(EntityManagerInterface $em, MailerInterface $mailer): Response
+    {
+        $user = $this->getUser();
+        if (!$user) return $this->redirectToRoute('panier_index');
+
+        $panier = $user->getPanier();
+        if (!$panier || count($panier->getItems()) === 0) {
+            return $this->redirectToRoute('panier_index');
+        }
+
+        $commande = new Commande();
+        $commande->setUtilisateur($user);
+        $commande->setDateCommande(new \DateTime());
+        $commande->setStatus('payée');
+
+        $total = 0;
+        foreach ($panier->getItems() as $item) {
+            $produit = $item->getProduit();
+            $quantite = $item->getQuantite();
+            $prix = $produit->getPrix();
+
+            $commandeItem = new CommandeItem();
+            $commandeItem->setProduit($produit);
+            $commandeItem->setQuantite($quantite);
+            $commandeItem->setPrix($prix);
+            $commandeItem->setCommande($commande);
+
+            $commande->addItem($commandeItem);
+            $em->persist($commandeItem);
+
+            $total += $prix * $quantite;
+        }
+        $commande->setTotal($total);
+        $em->persist($commande);
+
+        // Vider le panier après création de la commande
+        foreach ($panier->getItems()->toArray() as $item) {
             $panier->removeItem($item);
             $em->remove($item);
         }
+
         $em->flush();
 
-        $total = array_sum(array_map(fn($i) => $i->getProduit()->getPrix() * $i->getQuantite(), $items));
+        $email = (new TemplatedEmail())
+            ->from(new Address('no-reply@tonsite.com', 'Mon Site'))
+            ->to($user->getEmail())
+            ->subject('Confirmation de votre commande #' . $commande->getId())
+            ->htmlTemplate('emails/commande_confirmation.html.twig')
+            ->context([
+                'user' => $user,
+                'commande' => $commande,
+                'items' => $commande->getItems(),
+                'total' => $total,
+            ]);
+        $mailer->send($email);
 
         return $this->render('panier/succes.html.twig', [
-            'items' => $items,
+            'commande' => $commande,
+            'items' => $commande->getItems(),
             'total' => $total
         ]);
     }

@@ -1,0 +1,156 @@
+{# templates/emails/commande_confirmation.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de commande</title>
+    <style>
+        /* ======= CSS de l'email ======= */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            padding: 30px 0;
+            background-color: #f4f4f4;
+        }
+
+        .email-container {
+            width: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .email-header h1 {
+            color: #3498db;
+            text-align: center;
+        }
+
+        .email-header p {
+            color: #555;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .email-details h2 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .email-details p {
+            color: #555;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .email-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .email-table th, .email-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .email-table th {
+            background-color: #f8f8f8;
+            text-align: left;
+        }
+
+        .email-table td {
+            text-align: left;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #f1f1f1;
+        }
+
+        .email-footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .email-footer a {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+        }
+
+        .email-footer p {
+            font-size: 12px;
+            color: #aaa;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ======= HTML de l'email ======= -->
+    <table class="email-wrapper">
+        <tr>
+            <td align="center">
+                <table class="email-container">
+                    <tr>
+                        <td class="email-header">
+                            <h1>Merci pour votre commande ! 🎉</h1>
+                            <p>Bonjour {{ user.nom }}, votre commande a été validée avec succès.</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="email-details">
+                            <h2>Détails de la commande #{{ commande.id }}</h2>
+                            <p>Votre commande a été passée le {{ commande.dateCommande|date('d/m/Y H:i', 'Europe/Paris') }}</p>
+                            <p>Statut : <strong>{{ commande.status }}</strong></p>
+                            <p>Adresse de livraison : {{ commande.adresseLivraison ?: 'Non renseignée' }}</p>
+
+                            <table class="email-table">
+                                <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Quantité</th>
+                                        <th>Prix</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                        <tr>
+                                            <td>{{ item.produit.nom }}</td>
+                                            <td>{{ item.quantite }}</td>
+                                            <td>{{ item.prix|number_format(2, '.', ',') }} €</td>
+                                            <td>{{ (item.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr class="total-row">
+                                        <td colspan="3">Total</td>
+                                        <td>{{ total|number_format(2, '.', ',') }} €</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="email-footer">
+                            <a href="{{ url('panier_index') }}">Retour au site</a>
+                            <p>&copy; {{ "now"|date("Y") }} Mon Site. Tous droits réservés.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

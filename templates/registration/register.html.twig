@@ -6,18 +6,21 @@
 <style>
     .container {
         max-width: 400px;
-        margin: 0 auto;
+        margin: 50px auto;
         padding: 30px;
         background-color: #FFFFFF;
         border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
     }
 
     h1 {
         text-align: center;
+        margin-bottom: 20px;
     }
 
     form {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     input[type="text"],
@@ -31,41 +34,45 @@
         box-sizing: border-box;
     }
 
-    .inscription {
-        width: 100%;
-        padding: 10px;
-        background-color: #BBBBBB;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .inscription:hover {
-        color: #FFFFFF;
-    }
-
-    p {
-        margin-top: 10px;
-        text-align: center;
-    }
-    .lien {
-        text-decoration: none; 
-        color: inherit;
-    }
-    .lien:hover {
-        text-decoration: none; 
-        font-weight: bold;
-    }
     .btn {
         width: 100%;
         padding: 10px;
-        background-color: #BBBBBB;
+        background-color: #3498db;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: background-color 0.3s;
     }
+
     .btn:hover {
-        color: #FFFFFF;
+        background-color: #2980b9;
+    }
+
+    p {
+        margin-top: 15px;
+        text-align: center;
+        color: #555;
+    }
+
+    .lien {
+        text-decoration: none;
+        color: #3498db;
+    }
+
+    .lien:hover {
+        font-weight: bold;
+    }
+
+    .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #e74c3c;
+        text-align: center;
     }
 </style>
 {% endblock %}
@@ -73,7 +80,7 @@
 {% block body %}
 <div class="container">
     {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        <div class="alert">{{ flash_error }}</div>
     {% endfor %}
 
     <h1>Inscription</h1>
@@ -81,30 +88,15 @@
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        <div class="form-row">
-            <div class="form-group">
-                {{ form_row(registrationForm.pseudo) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(registrationForm.prenom) }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                {{ form_row(registrationForm.nom) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(registrationForm.email) }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                {{ form_row(registrationForm.password) }}
-            </div>
-        </div>
-        <button type="submit" class="btn">Inscription</button>
-    {{ form_end(registrationForm) }}
-    <p>Déjà inscrit ? Connecte toi <a class="lien" href="{{ path('app_login') }}">ici</a>.</p> 
-</div>
+        {{ form_row(registrationForm.pseudo) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.password) }} 
 
+        <button type="submit" class="btn">S’inscrire</button>
+    {{ form_end(registrationForm) }}
+
+    <p>Déjà inscrit ? Connecte-toi <a class="lien" href="{{ path('app_login') }}">ici</a>.</p>
+</div>
 {% endblock %}

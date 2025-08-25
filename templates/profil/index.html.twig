@@ -49,6 +49,7 @@
         <p><strong>Prénom :</strong> {{ user.prenom }}</p>
         <p><strong>Nom :</strong> {{ user.nom }}</p>
         <p><strong>Email :</strong> {{ user.email }}</p>
+        <a href="{{ path('commande_historique') }}" class="btn btn-primary">Voir mon historique de commandes</a>
     </div>
 
     <a href="{{ path('app_profil_edit') }}" class="btn-edit">Modifier mon profil</a>
