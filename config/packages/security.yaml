@@ -33,13 +33,16 @@ security:
 
             logout:
                 path: /logout
-                # page de redirection après logout
                 target: app_accueil
 
     access_control:
+        - { path: ^/article/new, roles: ROLE_ADMIN }
+        - { path: ^/article/\d+/edit, roles: ROLE_ADMIN }
+        - { path: ^/article/\d+/delete, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
         - { path: ^/panier, roles: ROLE_USER }
+
 
 parameters:
     avatars_directory: '%kernel.project_dir%/public/uploads/avatars'

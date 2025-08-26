@@ -1,13 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Article{% endblock %}
+{% block title %}Modifier un Article{% endblock %}
+
+{% block stylesheets %}
+<style>
+/* Conteneur principal */
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Titre de la page */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Formulaire */
+form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Bouton du formulaire */
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Lien de retour */
+.btn-back {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.btn-back:hover {
+    color: #388E3C;
+}
+</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Article</h1>
+<div class="container">
+    <h1>Modifier l'article</h1>
 
-    {{ include('article/_form.html.twig', {'button_label': 'Update'}) }}
+    {# Formulaire d'édition #}
+    {{ include('article/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+    {# Lien retour #}
+    <a href="{{ path('app_article_index') }}" class="btn-back">Retour à la liste</a>
 
-    {{ include('article/_delete_form.html.twig') }}
+    {# Formulaire de suppression, seulement si admin #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div style="margin-top:20px;">
+            {{ include('article/_delete_form.html.twig') }}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

@@ -64,7 +64,6 @@ p { margin-top: 15px; text-align: center; color: #555; }
 <div class="container">
     <h1>Connexion</h1>
 
-    {# Affiche l'erreur si elle existe #}
     {% if error %}
         <div class="alert">
             {{ error.messageKey|trans(error.messageData, 'security') }}
