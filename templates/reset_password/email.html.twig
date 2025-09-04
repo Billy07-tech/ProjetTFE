@@ -1,68 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réinitialisation de mot de passe</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Réinitialisation de mot de passe</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				margin: 0;
+				padding: 0;
+			}
 
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+			.container {
+				max-width: 600px;
+				margin: 20px auto;
+				padding: 20px;
+				background-color: #fff;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
 
-        h1 {
-            color: #333;
-            text-align: center;
-        }
+			h1 {
+				color: #333;
+				text-align: center;
+			}
 
-        p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+			p {
+				color: #666;
+				line-height: 1.6;
+				margin-bottom: 20px;
+			}
 
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
+			a {
+				color: #007bff;
+				text-decoration: none;
+			}
 
-        a:hover {
-            text-decoration: underline;
-        }
+			a:hover {
+				text-decoration: underline;
+			}
 
-        .message {
-            margin-top: 30px;
-            text-align: center;
-        }
+			.message {
+				margin-top: 30px;
+				text-align: center;
+			}
 
-        .expiration {
-            color: #999;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
+			.expiration {
+				color: #999;
+				font-size: 0.9em;
+			}
+		</style>
+	</head>
+	<body>
 
-<div class="container">
-    <h1>Bonjour !</h1>
-    <p>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant :</p>
-    <p class="message">
-        <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-    </p>
-    <p>Ce lien expirera dans <span class="expiration">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</span>.</p>
-    <p>À bientôt !</p>
-</div>
+		<div class="container">
+			<h1>Bonjour !</h1>
+			<p>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant :</p>
+			<p class="message">
+				<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+			</p>
+			<p>Ce lien expirera dans
+				<span class="expiration">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</span>.</p>
+			<p>À bientôt !</p>
+		</div>
 
-</body>
+	</body>
 </html>

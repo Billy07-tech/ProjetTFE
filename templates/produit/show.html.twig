@@ -1,111 +1,112 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-{{ parent() }}
-<style>
-.product-details {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+	{{ parent() }}
+	<style>
+		.product-details {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #FFFFFF;
+			border-radius: 8px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
 
-.product-details h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+		.product-details h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
 
-.product-details table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+		.product-details table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
 
-.product-details th, .product-details td {
-    padding: 8px;
-    border-bottom: 1px solid #E0E0E0;
-}
+		.product-details th,
+		.product-details td {
+			padding: 8px;
+			border-bottom: 1px solid #E0E0E0;
+		}
 
-.product-details th {
-    text-align: left;
-    background-color: #F5F5F5;
-}
+		.product-details th {
+			text-align: left;
+			background-color: #F5F5F5;
+		}
 
-.product-details img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
+		.product-details img {
+			display: block;
+			margin: 0 auto 20px;
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+		}
 
-.add-to-cart-form {
-    text-align: center;
-    margin-bottom: 20px;
-}
+		.add-to-cart-form {
+			text-align: center;
+			margin-bottom: 20px;
+		}
 
-.add-to-cart-form .btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-}
+		.add-to-cart-form .btn {
+			padding: 10px 20px;
+			background-color: #28a745;
+			color: white;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+			text-decoration: none;
+		}
 
-.add-to-cart-form .btn:hover {
-    background-color: #218838;
-}
+		.add-to-cart-form .btn:hover {
+			background-color: #218838;
+		}
 
-.back {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: #007BFF;
-}
+		.back {
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			color: #007BFF;
+		}
 
-.back:hover {
-    text-decoration: underline;
-    font-weight: bold;
-}
-</style>
+		.back:hover {
+			text-decoration: underline;
+			font-weight: bold;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="product-details">
-    <h1>{{ produit.Nom }}</h1>
+	<div class="product-details">
+		<h1>{{ produit.Nom }}</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Prix</th>
-                <td>{{ produit.Prix }} €</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ produit.description }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td><img src="{{ vich_uploader_asset(produit, 'imageFile') }}"></td>
-            </tr>
-        </tbody>
-    </table>
+		<table>
+			<tbody>
+				<tr>
+					<th>Prix</th>
+					<td>{{ produit.Prix }}
+						€</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ produit.description }}</td>
+				</tr>
+				<tr>
+					<th>Image</th>
+					<td><img src="{{ vich_uploader_asset(produit, 'imageFile') }}"></td>
+				</tr>
+			</tbody>
+		</table>
 
-    <div class="add-to-cart-form">
-        {% if app.user %}
-            <a href="{{ path('panier_add', {'id': produit.id}) }}" class="btn">Ajouter au panier</a>
-        {% else %}
-            <a href="{{ path('app_login') }}" class="btn" style="background-color:#ffc107;color:black;">
-                Connectez-vous pour ajouter
-            </a>
-        {% endif %}
-    </div>
-</div>
+		<div class="add-to-cart-form">
+			{% if app.user %}
+				<a href="{{ path('panier_add', {'id': produit.id}) }}" class="btn">Ajouter au panier</a>
+			{% else %}
+				<a href="{{ path('app_login') }}" class="btn" style="background-color:#ffc107;color:black;">
+					Connectez-vous pour ajouter
+				</a>
+			{% endif %}
+		</div>
+	</div>
 
-<a class="back" href="{{ path('app_produit_index') }}">Retour à la boutique</a>
+	<a class="back" href="{{ path('app_produit_index') }}">Retour à la boutique</a>
 {% endblock %}

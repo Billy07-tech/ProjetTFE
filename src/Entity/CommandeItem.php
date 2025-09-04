@@ -27,19 +27,53 @@ class CommandeItem
     #[ORM\Column(type: 'integer')]
     private int $prix; // prix unitaire au moment de l'achat
 
-    public function getId(): ?int { return $this->id; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getCommande(): ?Commande { return $this->commande; }
-    public function setCommande(?Commande $commande): static { $this->commande = $commande; return $this; }
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+    public function setCommande(?Commande $commande): static
+    {
+        $this->commande = $commande;
+        return $this;
+    }
 
-    public function getProduit(): ?Produit { return $this->produit; }
-    public function setProduit(?Produit $produit): static { $this->produit = $produit; return $this; }
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+    public function setProduit(?Produit $produit): static
+    {
+        $this->produit = $produit;
+        return $this;
+    }
 
-    public function getQuantite(): int { return $this->quantite; }
-    public function setQuantite(int $qte): static { $this->quantite = $qte; return $this; }
+    public function getQuantite(): int
+    {
+        return $this->quantite;
+    }
+    public function setQuantite(int $qte): static
+    {
+        $this->quantite = $qte;
+        return $this;
+    }
 
-    public function getPrix(): int { return $this->prix; }
-    public function setPrix(int $prix): static { $this->prix = $prix; return $this; }
+    public function getPrix(): int
+    {
+        return $this->prix;
+    }
+    public function setPrix(int $prix): static
+    {
+        $this->prix = $prix;
+        return $this;
+    }
 
-    public function getTotal(): int { return $this->prix * $this->quantite; }
+    public function getTotal(): int
+    {
+        return $this->prix * $this->quantite;
+    }
 }

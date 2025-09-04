@@ -1,63 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des demandes{% endblock %}
+{% block title %}Liste des demandes
+{% endblock %}
 
 {% block stylesheets %}
 
-    <style>
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .table th,
-        .table td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .table th {
-            background-color: #343a40;
-            color: #fff;
-        }
-        .table tbody tr:nth-of-type(odd) {
-            background-color: #f8f9fa;
-        }
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #dee2e6;
-        }
-        .text-center {
-            text-align: center;
-        }
-    </style>
+	<style>
+		.table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.table th,
+		.table td {
+			padding: 8px;
+			text-align: left;
+			border-bottom: 1px solid #dee2e6;
+		}
+		.table th {
+			background-color: #343a40;
+			color: #fff;
+		}
+		.table tbody tr:nth-of-type(odd) {
+			background-color: #f8f9fa;
+		}
+		.table-bordered th,
+		.table-bordered td {
+			border: 1px solid #dee2e6;
+		}
+		.text-center {
+			text-align: center;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Liste des demandes</h1>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Message</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for demande in demandesAssistances %}
-                    <tr>
-                        <td>{{ demande.id }}</td>
-                        <td>{{ demande.email }}</td>
-                        <td>{{ demande.message }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="3" class="text-center">Aucune demande trouvée</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">Liste des demandes</h1>
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Email</th>
+						<th scope="col">Message</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for demande in demandesAssistances %}
+						<tr>
+							<td>{{ demande.id }}</td>
+							<td>{{ demande.email }}</td>
+							<td>{{ demande.message }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3" class="text-center">Aucune demande trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}

@@ -1,168 +1,176 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Panier{% endblock %}
+{% block title %}Mon Panier
+{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
-<style>
-    .container.mt-5 {
-        max-width: 900px;
-        margin: 50px auto;
-        padding: 20px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        font-family: 'Roboto', sans-serif;
-    }
+	{{ parent() }}
+	<style>
+		.container.mt-5 {
+			max-width: 900px;
+			margin: 50px auto;
+			padding: 20px;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+			font-family: 'Roboto', sans-serif;
+		}
 
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-        font-size: 2rem;
-    }
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+			color: #333;
+			font-size: 2rem;
+		}
 
-    table.table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
+		table.table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
 
-    table th, table td {
-        padding: 12px 15px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-    }
+		table th,
+		table td {
+			padding: 12px 15px;
+			text-align: left;
+			border-bottom: 1px solid #eee;
+		}
 
-    table th {
-        background-color: #f8f8f8;
-        color: #555;
-        font-weight: 500;
-    }
+		table th {
+			background-color: #f8f8f8;
+			color: #555;
+			font-weight: 500;
+		}
 
-    table td {
-        color: #666;
-    }
+		table td {
+			color: #666;
+		}
 
-    .btn {
-        display: inline-block;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        text-decoration: none;
-        transition: 0.3s;
-    }
+		.btn {
+			display: inline-block;
+			padding: 8px 16px;
+			border-radius: 8px;
+			font-size: 0.9rem;
+			text-decoration: none;
+			transition: 0.3s;
+		}
 
-    .btn-danger {
-        background-color: #e74c3c;
-        color: #fff;
-        border: none;
-    }
+		.btn-danger {
+			background-color: #e74c3c;
+			color: #fff;
+			border: none;
+		}
 
-    .btn-danger:hover {
-        background-color: #c0392b;
-        color: #fff;
-    }
+		.btn-danger:hover {
+			background-color: #c0392b;
+			color: #fff;
+		}
 
-    .btn-warning {
-        background-color: #f1c40f;
-        color: #fff;
-        border: none;
-    }
+		.btn-warning {
+			background-color: #f1c40f;
+			color: #fff;
+			border: none;
+		}
 
-    .btn-warning:hover {
-        background-color: #d4ac0d;
-        color: #fff;
-    }
+		.btn-warning:hover {
+			background-color: #d4ac0d;
+			color: #fff;
+		}
 
-    .btn-success {
-        background-color: #27ae60;
-        color: #fff;
-        border: none;
-    }
+		.btn-success {
+			background-color: #27ae60;
+			color: #fff;
+			border: none;
+		}
 
-    .btn-success:hover {
-        background-color: #1e8449;
-        color: #fff;
-    }
+		.btn-success:hover {
+			background-color: #1e8449;
+			color: #fff;
+		}
 
-    .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border: none;
-        padding: 4px 10px;
-        border-radius: 5px;
-        margin: 0 2px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        text-decoration: none;
-    }
+		.btn-secondary {
+			background-color: #6c757d;
+			color: #fff;
+			border: none;
+			padding: 4px 10px;
+			border-radius: 5px;
+			margin: 0 2px;
+			cursor: pointer;
+			font-size: 0.9rem;
+			text-decoration: none;
+		}
 
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        color: #fff;
-    }
+		.btn-secondary:hover {
+			background-color: #5a6268;
+			color: #fff;
+		}
 
-    p {
-        text-align: center;
-        color: #555;
-        font-size: 1.1rem;
-        margin-top: 20px;
-    }
+		p {
+			text-align: center;
+			color: #555;
+			font-size: 1.1rem;
+			margin-top: 20px;
+		}
 
-    .cart-actions {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-    }
-</style>
+		.cart-actions {
+			margin-top: 20px;
+			display: flex;
+			justify-content: space-between;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1>Mon Panier</h1>
+	<div class="container mt-5">
+		<h1>Mon Panier</h1>
 
-    {% if panier and panier.items|length > 0 %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% set total = 0 %}
-            {% for item in panier.items %}
-                {% set total = total + (item.produit.prix * item.quantite) %}
-                <tr>
-                    <td>{{ item.produit.nom }}</td>
-                    <td>
-                        <a href="{{ path('panier_decrease', {id: item.produit.id}) }}" class="btn btn-sm btn-secondary">-</a>
-                        {{ item.quantite }}
-                        <a href="{{ path('panier_increase', {id: item.produit.id}) }}" class="btn btn-sm btn-secondary">+</a>
-                    </td>
-                    <td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
-                    <td>
-                        <a href="{{ path('panier_remove', {id: item.produit.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="2"><strong>Total :</strong></td>
-                <td colspan="2"><strong>{{ total|number_format(2, '.', ',') }} €</strong></td>
-            </tr>
-        </tbody>
-    </table>
+		{% if panier and panier.items|length > 0 %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Produit</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% set total = 0 %}
+					{% for item in panier.items %}
+						{% set total = total + (item.produit.prix * item.quantite) %}
+						<tr>
+							<td>{{ item.produit.nom }}</td>
+							<td>
+								<a href="{{ path('panier_decrease', {id: item.produit.id}) }}" class="btn btn-sm btn-secondary">-</a>
+								{{ item.quantite }}
+								<a href="{{ path('panier_increase', {id: item.produit.id}) }}" class="btn btn-sm btn-secondary">+</a>
+							</td>
+							<td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }}
+								€</td>
+							<td>
+								<a href="{{ path('panier_remove', {id: item.produit.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<td colspan="2">
+							<strong>Total :</strong>
+						</td>
+						<td colspan="2">
+							<strong>{{ total|number_format(2, '.', ',') }}
+								€</strong>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-    <div class="cart-actions">
-        <a href="{{ path('panier_clear') }}" class="btn btn-warning">Vider le panier</a>
-        <a href="{{ path('panier_checkout') }}" class="btn btn-success">Payer</a>
-    </div>
+			<div class="cart-actions">
+				<a href="{{ path('panier_clear') }}" class="btn btn-warning">Vider le panier</a>
+				<a href="{{ path('panier_checkout') }}" class="btn btn-success">Payer</a>
+			</div>
 
-    {% else %}
-        <p>Votre panier est vide.</p>
-    {% endif %}
-</div>
+		{% else %}
+			<p>Votre panier est vide.</p>
+		{% endif %}
+	</div>
 {% endblock %}

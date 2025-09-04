@@ -38,24 +38,59 @@ class Article
         $this->date = new \DateTime();
     }
 
-    public function getId(): ?int { return $this->id; }
-
-    public function getTitre(): ?string { return $this->titre; }
-    public function setTitre(string $titre): static { $this->titre = $titre; return $this; }
-
-    public function getContenu(): ?string { return $this->contenu; }
-    public function setContenu(string $contenu): static { $this->contenu = $contenu; return $this; }
-
-    public function getIdAuteur(): ?int { return $this->id_auteur; }
-    public function setIdAuteur(int $id_auteur): static { $this->id_auteur = $id_auteur; return $this; }
-
-    public function getAuteur(): ?Utilisateur { return $this->auteur; }
-    public function setAuteur(Utilisateur $auteur): static { 
-        $this->auteur = $auteur; 
-        $this->id_auteur = $auteur->getId(); // mettre à jour id_auteur aussi
-        return $this; 
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface { return $this->date; }
-    public function setDate(\DateTimeInterface $date): static { $this->date = $date; return $this; }
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+    public function setTitre(string $titre): static
+    {
+        $this->titre = $titre;
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+    public function setContenu(string $contenu): static
+    {
+        $this->contenu = $contenu;
+        return $this;
+    }
+
+    public function getIdAuteur(): ?int
+    {
+        return $this->id_auteur;
+    }
+    public function setIdAuteur(int $id_auteur): static
+    {
+        $this->id_auteur = $id_auteur;
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+    public function setAuteur(Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
+        $this->id_auteur = $auteur->getId(); // mettre à jour id_auteur aussi
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+        return $this;
+    }
 }

@@ -1,115 +1,124 @@
 {# templates/commande/historique.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Historique des commandes{% endblock %}
+{% block title %}Historique des commandes
+{% endblock %}
 
 {% block stylesheets %}
-<style>
-    .container {
-        max-width: 1000px;
-        margin: 50px auto;
-        padding: 25px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        font-family: 'Roboto', sans-serif;
-    }
+	<style>
+		.container {
+			max-width: 1000px;
+			margin: 50px auto;
+			padding: 25px;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+			font-family: 'Roboto', sans-serif;
+		}
 
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-        font-size: 2rem;
-    }
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+			color: #333;
+			font-size: 2rem;
+		}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
 
-    th, td {
-        padding: 12px 15px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-    }
+		th,
+		td {
+			padding: 12px 15px;
+			text-align: left;
+			border-bottom: 1px solid #eee;
+		}
 
-    th {
-        background-color: #f8f8f8;
-        color: #555;
-        font-weight: 500;
-    }
+		th {
+			background-color: #f8f8f8;
+			color: #555;
+			font-weight: 500;
+		}
 
-    td {
-        color: #666;
-    }
+		td {
+			color: #666;
+		}
 
-    .btn {
-        display: inline-block;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        text-decoration: none;
-        transition: 0.3s;
-        background-color: #3498db;
-        color: #fff;
-    }
+		.btn {
+			display: inline-block;
+			padding: 8px 16px;
+			border-radius: 8px;
+			font-size: 0.9rem;
+			text-decoration: none;
+			transition: 0.3s;
+			background-color: #3498db;
+			color: #fff;
+		}
 
-    .btn:hover {
-        background-color: #2980b9;
-        color: #fff;
-    }
+		.btn:hover {
+			background-color: #2980b9;
+			color: #fff;
+		}
 
-    .total-row {
-        font-weight: bold;
-        background-color: #f1f1f1;
-    }
+		.total-row {
+			font-weight: bold;
+			background-color: #f1f1f1;
+		}
 
-    p {
-        text-align: center;
-        color: #555;
-        font-size: 1.1rem;
-        margin-top: 20px;
-    }
-</style>
+		p {
+			text-align: center;
+			color: #555;
+			font-size: 1.1rem;
+			margin-top: 20px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Historique des commandes</h1>
+	<div class="container">
+		<h1>Historique des commandes</h1>
 
-    {% if commandes|length > 0 %}
-        {% for commande in commandes %}
-            <h2>Commande #{{ commande.id }} - {{ commande.dateCommande|date('d/m/Y H:i') }}</h2>
-            <p>Statut : <strong>{{ commande.status }}</strong></p>
+		{% if commandes|length > 0 %}
+			{% for commande in commandes %}
+				<h2>Commande #{{ commande.id }}
+					-
+					{{ commande.dateCommande|date('d/m/Y H:i') }}</h2>
+				<p>Statut :
+					<strong>{{ commande.status }}</strong>
+				</p>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Quantité</th>
-                        <th>Prix unitaire</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in commande.items %}
-                        <tr>
-                            <td>{{ item.produit.nom }}</td>
-                            <td>{{ item.quantite }}</td>
-                            <td>{{ item.prix|number_format(2, '.', ',') }} €</td>
-                            <td>{{ (item.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
-                        </tr>
-                    {% endfor %}
-                    <tr class="total-row">
-                        <td colspan="3">Total commande</td>
-                        <td>{{ commande.total|number_format(2, '.', ',') }} €</td>
-                    </tr>
-                </tbody>
-            </table>
-        {% endfor %}
-    {% else %}
-        <p>Vous n'avez passé aucune commande pour le moment.</p>
-    {% endif %}
-</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Quantité</th>
+							<th>Prix unitaire</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in commande.items %}
+							<tr>
+								<td>{{ item.produit.nom }}</td>
+								<td>{{ item.quantite }}</td>
+								<td>{{ item.prix|number_format(2, '.', ',') }}
+									€</td>
+								<td>{{ (item.prix * item.quantite)|number_format(2, '.', ',') }}
+									€</td>
+							</tr>
+						{% endfor %}
+						<tr class="total-row">
+							<td colspan="3">Total commande</td>
+							<td>{{ commande.total|number_format(2, '.', ',') }}
+								€</td>
+						</tr>
+					</tbody>
+				</table>
+			{% endfor %}
+		{% else %}
+			<p>Vous n'avez passé aucune commande pour le moment.</p>
+		{% endif %}
+	</div>
 {% endblock %}

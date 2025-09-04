@@ -1,84 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paiement réussi{% endblock %}
+{% block title %}Paiement réussi
+{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
-<style>
-.container.mt-5 {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-}
+	{{ parent() }}
+	<style>
+		.container.mt-5 {
+			max-width: 800px;
+			margin: 50px auto;
+			padding: 20px;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+			font-family: 'Roboto', sans-serif;
+			text-align: center;
+		}
 
-h1 {
-    color: #27ae60;
-    margin-bottom: 30px;
-    font-size: 2rem;
-}
+		h1 {
+			color: #27ae60;
+			margin-bottom: 30px;
+			font-size: 2rem;
+		}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
 
-th, td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-}
+		th,
+		td {
+			padding: 12px 15px;
+			border-bottom: 1px solid #eee;
+		}
 
-th {
-    background-color: #f8f8f8;
-    font-weight: 500;
-}
+		th {
+			background-color: #f8f8f8;
+			font-weight: 500;
+		}
 
-td {
-    color: #555;
-}
+		td {
+			color: #555;
+		}
 
-.total {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 20px;
-}
-</style>
+		.total {
+			font-weight: bold;
+			font-size: 1.2rem;
+			margin-top: 20px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1>Paiement réussi ! 🎉</h1>
+	<div class="container mt-5">
+		<h1>Paiement réussi ! 🎉</h1>
 
-    <p>Merci pour votre commande. Voici le récapitulatif :</p>
+		<p>Merci pour votre commande. Voici le récapitulatif :</p>
 
-    {% if items|length > 0 %}
-    <table>
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.produit.nom }}</td>
-                <td>{{ item.quantite }}</td>
-                <td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }} €</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+		{% if items|length > 0 %}
+			<table>
+				<thead>
+					<tr>
+						<th>Produit</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items %}
+						<tr>
+							<td>{{ item.produit.nom }}</td>
+							<td>{{ item.quantite }}</td>
+							<td>{{ (item.produit.prix * item.quantite)|number_format(2, '.', ',') }}
+								€</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 
-    <p class="total">Total payé : {{ total|number_format(2, '.', ',') }} €</p>
-    {% endif %}
+			<p class="total">Total payé :
+				{{ total|number_format(2, '.', ',') }}
+				€</p>
+		{% endif %}
 
-    <a href="{{ path('app_accueil') }}" class="btn btn-warning">Retour à l'accueil</a>
-</div>
+		<a href="{{ path('app_accueil') }}" class="btn btn-warning">Retour à l'accueil</a>
+	</div>
 {% endblock %}

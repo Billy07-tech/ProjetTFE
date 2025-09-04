@@ -1,92 +1,118 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion
+{% endblock %}
 
 {% block stylesheets %}
-<style>
-.container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
-}
+	<style>
+		.container {
+			max-width: 400px;
+			margin: 50px auto;
+			padding: 30px;
+			background-color: #FFFFFF;
+			border-radius: 8px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			font-family: Arial, sans-serif;
+		}
 
-h1 { text-align: center; margin-bottom: 20px; }
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
 
-form { margin-top: 10px; }
+		form {
+			margin-top: 10px;
+		}
 
-label { display: block; margin-bottom: 5px; font-weight: bold; }
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 15px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
 
-.connexion {
-    width: 100%;
-    padding: 12px;
-    background-color: #3498db;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #fff;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
+		.connexion {
+			width: 100%;
+			padding: 12px;
+			background-color: #3498db;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			color: #fff;
+			font-weight: bold;
+			transition: background-color 0.3s;
+		}
 
-.connexion:hover { background-color: #2980b9; }
+		.connexion:hover {
+			background-color: #2980b9;
+		}
 
-.alert {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: #e74c3c;
-    text-align: center;
-    font-weight: bold;
-}
+		.alert {
+			padding: 10px;
+			margin-bottom: 15px;
+			border-radius: 4px;
+			color: #fff;
+			background-color: #e74c3c;
+			text-align: center;
+			font-weight: bold;
+		}
 
-p { margin-top: 15px; text-align: center; color: #555; }
+		p {
+			margin-top: 15px;
+			text-align: center;
+			color: #555;
+		}
 
-.lien { text-decoration: none; color: #3498db; }
-.lien:hover { font-weight: bold; }
-</style>
+		.lien {
+			text-decoration: none;
+			color: #3498db;
+		}
+		.lien:hover {
+			font-weight: bold;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Connexion</h1>
+	<div class="container">
+		<h1>Connexion</h1>
 
-    {% if error %}
-        <div class="alert">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
+		{% if error %}
+			<div class="alert">
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</div>
+		{% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <div>
-            <label for="mail">Email</label>
-            <input type="text" name="_email" value="{{ lastUserMail }}" required>
-        </div>
-        <div>
-            <label for="password">Mot de passe</label>
-            <input type="password" name="_password" required>
-        </div>
-        <div>
-            <button class="connexion" type="submit">Se connecter</button>
-        </div>
-        <input type="hidden" name="_target_path" value="/" />
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    </form>
+		<form action="{{ path('app_login') }}" method="post">
+			<div>
+				<label for="mail">Email</label>
+				<input type="text" name="_email" value="{{ lastUserMail }}" required>
+			</div>
+			<div>
+				<label for="password">Mot de passe</label>
+				<input type="password" name="_password" required>
+			</div>
+			<div>
+				<button class="connexion" type="submit">Se connecter</button>
+			</div>
+			<input type="hidden" name="_target_path" value="/"/>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		</form>
 
-    <p>Pas encore inscrit ? <a class="lien" href="{{ path('app_register') }}">S'inscrire ici</a></p>
-    <p><a class="lien" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a></p>
-</div>
+		<p>Pas encore inscrit ?
+			<a class="lien" href="{{ path('app_register') }}">S'inscrire ici</a>
+		</p>
+		<p>
+			<a class="lien" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+		</p>
+	</div>
 {% endblock %}

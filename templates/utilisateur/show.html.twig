@@ -1,108 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de l'utilisateur{% endblock %}
+{% block title %}Détails de l'utilisateur
+{% endblock %}
 
 {% block stylesheets %}
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+	<style>
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			background-color: #f9f9f9;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+		h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
+		th,
+		td {
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
 
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            text-align: left;
-        }
+		th {
+			background-color: #f2f2f2;
+			font-weight: bold;
+			text-align: left;
+		}
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+		tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
 
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+		.btn-container {
+			text-align: center;
+			margin-top: 20px;
+		}
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #bbbbbb;
-            color: black;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+		.btn {
+			display: inline-block;
+			padding: 10px 20px;
+			margin: 0 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: #bbbbbb;
+			color: black;
+			text-decoration: none;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-        .btn:hover {
-            color: #ffffff;
-        }
-    </style>
+		.btn:hover {
+			color: #ffffff;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Détails de l'utilisateur</h1>
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">Détails de l'utilisateur</h1>
 
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>{{ utilisateur.id }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Pseudo</th>
-                    <td>{{ utilisateur.pseudo }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Prénom</th>
-                    <td>{{ utilisateur.prenom }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Nom</th>
-                    <td>{{ utilisateur.nom }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Email</th>
-                    <td>{{ utilisateur.email }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Rôles</th>
-                    <td>{{ utilisateur.roles }}</td>
-                </tr>
-            </tbody>
-        </table>
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th scope="row">Id</th>
+					<td>{{ utilisateur.id }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Pseudo</th>
+					<td>{{ utilisateur.pseudo }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Prénom</th>
+					<td>{{ utilisateur.prenom }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Nom</th>
+					<td>{{ utilisateur.nom }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Email</th>
+					<td>{{ utilisateur.email }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Rôles</th>
+					<td>{{ utilisateur.roles }}</td>
+				</tr>
+			</tbody>
+		</table>
 
-        <div class="btn-container">
-            <a href="{{ path('app_utilisateur_index') }}" class="btn">Retour à la liste</a>
-            <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn">Modifier</a>
-        </div>
+		<div class="btn-container">
+			<a href="{{ path('app_utilisateur_index') }}" class="btn">Retour à la liste</a>
+			<a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn">Modifier</a>
+		</div>
 
-        {{ include('utilisateur/_delete_form.html.twig') }}
-    </div>
+		{{ include('utilisateur/_delete_form.html.twig') }}
+	</div>
 {% endblock %}
