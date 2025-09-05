@@ -12,7 +12,8 @@ class AccueilController extends AbstractController
     public function index(): Response
     {
         return $this->render('accueil.html.twig', [
-            'controller_name' => 'AccueilController',
+            'app_name' => 'Checkers Elite',
         ]);
+
     }
 }

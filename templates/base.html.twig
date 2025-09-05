@@ -1,130 +1,65 @@
+{% set app_name = app_name is defined ? app_name : 'Checkers Elite' %}
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
-			{% block title %}Checkers Elite
+			{% block title %}
+				{{ app_name }}
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-		<style>
-			body {
-				font-family: 'Roboto', sans-serif;
-				margin: 0;
-				padding: 0;
-				background-color: #E6DfC6;
-				position: relative;
-				min-height: 100vh;
-			}
 
-			menu {
-				position: absolute;
-				top: 10px;
-				width: 100%;
-				padding: 10px 0;
-				text-align: right;
-			}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('nova/css/nova.css') }}"> {% block styles %}{% endblock %}
+		</head>
+		<body class="layout">
+			<header class="header">
+				<div class="container nav">
+					<a class="brand" href="{{ path('app_accueil') }}">
+						<div class="brand-badge">C</div>
+						<span class="brand-name">{{ app_name }}</span>
+					</a>
 
-			menu ul {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-				text-align: right;
-			}
+					<a href="{{ path('app_accueil') }}">Accueil</a>
+					<a href="{{ path('app_article_index') }}">Actualités</a>
+					<a href="{{ path('app_produit_index') }}">Boutique</a>
+					<a href="{{ path('app_regle') }}">Règles</a>
 
-			menu ul li {
-				display: inline;
-				margin-right: 50px;
-			}
+					{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+						<a href="{{ path('app_login') }}">Se connecter</a>
+					{% else %}
+						<a href="{{ path('app_profil') }}">Mon profil</a>
+						<a href="{{ path('_logout_main') }}">Se déconnecter</a>
 
-			menu ul li a {
-				text-decoration: none;
-				color: inherit;
-			}
-
-			menu ul li a:hover {
-				font-weight: bold;
-			}
-
-			.assistance {
-				text-decoration: none;
-				color: inherit;
-				position: absolute;
-				bottom: 10px;
-				left: 20px;
-			}
-
-			.assistance:hover {
-				font-weight: bold;
-			}
-			.cart-icon {
-				width: 32px;
-				height: 32px;
-				vertical-align: middle;
-			}
-		</style>
-		{% block stylesheets %}{% endblock %}
-	</head>
-	<body>
-
-		<a href="{{ path('app_accueil') }}">
-			<img src="{{ asset('logo.png') }}" alt="Logo du site"/>
-		</a>
-
-		<menu>
-			<ul>
-				<li>
-					<a href="{{ path('app_accueil') }}">ACCUEIL</a>
-				</li>
-				<li>
-					<a href="{{ path('app_article_index') }}">ACTUALITES</a>
-				</li>
-				<li>
-					<a href="{{ path('app_regle') }}">REGLES</a>
-				</li>
-				<li>
-					<a href="{{ path('app_produit_index') }}">BOUTIQUE</a>
-				</li>
-
-				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-					<li>
-						<a href="{{ path('app_profil') }}">PROFIL</a>
-					</li>
-
-					{% if is_granted('ROLE_ADMIN') %}
-						<li>
-							<a href="{{ path('app_administrateur') }}">ADMIN</a>
-						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('app_administrateur') }}">Administration</a>
+						{% endif %}
 					{% endif %}
 
-					<li>
-						<a href="{{ path('panier_index') }}" class="panier-link">
-							<img src="{{ asset('logo/cart.png') }}" alt="Panier" class="cart-icon">
-							{% if app.user.panier %}
-								<span class="cart-count">{{ app.user.panier.items|length }}</span>
-							{% endif %}
-						</a>
-					</li>
+					<a class="btn" href="{{ path('app_regle') }}">Jouer maintenant</a>
+				</div>
+			</header>
 
-					<li>
-						<a href="/logout">SE DÉCONNECTER</a>
-					</li>
-				{% else %}
-					<li>
-						<a href="{{ path('app_login') }}">SE CONNECTER</a>
-					</li>
-				{% endif %}
-			</ul>
-		</menu>
+			<main class="main container"> {% block body %}{% endblock %}
+				</main>
 
+				<footer class="footer">
+					<div class="container">
+						<p>©
+							{{ "now"|date("Y") }}
+							{{ app_name }}
+							— Tous droits réservés.</p>
+						<div class="links">
+							<a href="{{ path('app_assistance') }}">Contact</a>
+							<a href="#">Confidentialité</a>
+						</div>
+					</div>
+				</footer>
 
-		<div class="content"> {% block body %}{% endblock %}
-			</div>
-
-			<div>
-				<a class="assistance" href="{{ path('app_assistance') }}">ASSISTANCE</a>
-			</div>
-
-			{% block foot %}{% endblock %}
-		</body>
-	</html>
+				<script src="{{ asset('nova/js/nova.js') }}"></script>
+				{% block scripts %}{% endblock %}
+			</body>
+		</html>

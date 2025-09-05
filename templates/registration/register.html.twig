@@ -3,83 +3,8 @@
 {% block title %}Inscription
 {% endblock %}
 
-{% block stylesheets %}
-	<style>
-		.container {
-			max-width: 400px;
-			margin: 50px auto;
-			padding: 30px;
-			background-color: #FFFFFF;
-			border-radius: 8px;
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-			font-family: Arial, sans-serif;
-		}
-
-		h1 {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-top: 10px;
-		}
-
-		input[type="text"],
-		input[type="email"],
-		input[type="password"] {
-			width: 100%;
-			padding: 10px;
-			margin-bottom: 10px;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-		}
-
-		.btn {
-			width: 100%;
-			padding: 10px;
-			background-color: #3498db;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-			color: #fff;
-			font-weight: bold;
-			margin-top: 10px;
-			transition: background-color 0.3s;
-		}
-
-		.btn:hover {
-			background-color: #2980b9;
-		}
-
-		p {
-			margin-top: 15px;
-			text-align: center;
-			color: #555;
-		}
-
-		.lien {
-			text-decoration: none;
-			color: #3498db;
-		}
-
-		.lien:hover {
-			font-weight: bold;
-		}
-
-		.alert {
-			padding: 10px;
-			margin-bottom: 15px;
-			border-radius: 4px;
-			color: #fff;
-			background-color: #e74c3c;
-			text-align: center;
-		}
-	</style>
-{% endblock %}
-
 {% block body %}
-	<div class="container">
+	<div class="register-box">
 		{% for flash_error in app.flashes('verify_email_error') %}
 			<div class="alert">{{ flash_error }}</div>
 		{% endfor %}
@@ -87,18 +12,19 @@
 		<h1>Inscription</h1>
 
 		{{ form_errors(registrationForm) }}
-
 		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.pseudo) }}
-		{{ form_row(registrationForm.prenom) }}
-		{{ form_row(registrationForm.nom) }}
-		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.password) }}
+			{{ form_row(registrationForm.pseudo) }}
+			{{ form_row(registrationForm.prenom) }}
+			{{ form_row(registrationForm.nom) }}
+			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.password) }}
 
-		<button type="submit" class="btn">S’inscrire</button>
+			<button type="submit" class="btn">S’inscrire</button>
 		{{ form_end(registrationForm) }}
 
 		<p>Déjà inscrit ? Connecte-toi
-			<a class="lien" href="{{ path('app_login') }}">ici</a>.</p>
+			<a class="lien" href="{{ path('app_login') }}">ici</a>.
+		</p>
 	</div>
 {% endblock %}
+

@@ -1,92 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Boutique
-{% endblock %}
-
-{% block stylesheets %}
-	{{ parent() }}
-	<style>
-		.container {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			margin-top: 20px;
-		}
-
-		h1 {
-			text-align: center;
-		}
-
-		.products-container {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 20px;
-		}
-
-		.card {
-			flex: 0 0 calc(25% - 40px);
-			background-color: #fff;
-			border-radius: 8px;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			margin-bottom: 20px;
-		}
-
-		.card-body {
-			padding: 20px;
-		}
-
-		.card-title {
-			text-align: center;
-		}
-
-		.lien_produit {
-			text-decoration: none;
-			color: inherit;
-		}
-
-		.lien_produit:hover {
-			text-decoration: none;
-			font-weight: bold;
-		}
-
-		.card img {
-			width: 100%;
-			height: auto;
-			object-fit: cover;
-			border-radius: 8px 8px 0 0;
-		}
-
-		.pagination {
-			margin-top: 20px;
-		}
-	</style>
-{% endblock %}
+{% block title %}Boufefetique{% endblock %}
 
 {% block body %}
-	<h1>Boutique</h1>
-	<div class="container">
-		<div class="products-container">
-			{% for pagination in paginations %}
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">{{ pagination.nom }}</h5>
-						<img src="{{ vich_uploader_asset(pagination, 'imageFile')}}" alt="{{ pagination.nom }}">
-						<p class="card-text">{{ pagination.prix }}
-							€</p>
-						<br>
-						<a class="lien_produit" href="{{ path('app_produit_show', {'id': pagination.id}) }}">Voir le produit</a>
-					</div>
-				</div>
-			{% else %}
-				<p>Aucun produit disponible pour le moment.</p>
-			{% endfor %}
-		</div>
-		{% if is_granted('ROLE_ADMIN') %}
-			<a href="{{ path('app_produit_new') }}">Nouveau produit</a>
-		{% endif %}
-	</div>
-	{{ knp_pagination_render(paginations) }}
+<div class="boutique nova">
+    <h1>Boutique</h1>
+    <div class="container">
+        <div class="products-container">
+            {% for pagination in paginations %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pagination.nom }}</h5>
+                        <img src="{{ vich_uploader_asset(pagination, 'imageFile')}}" alt="{{ pagination.nom }}">
+                        <p class="card-text">{{ pagination.prix }} €</p>
+                        <br>
+                        <a class="lien_produit" href="{{ path('app_produit_show', {'id': pagination.id}) }}">Voir le produit</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun produit disponible pour le moment.</p>
+            {% endfor %}
+        </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_produit_new') }}">Nouveau produit</a>
+        {% endif %}
+    </div>
+
+    {{ knp_pagination_render(paginations) }}
+</div>
 {% endblock %}
