@@ -1,109 +1,56 @@
+{# templates/article/index.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Articles
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/articles.css') }}">
+{% endblock %}
+
 {% block body %}
-	<style>
-		h1 {
-			text-align: center;
-			color: #222;
-			margin-bottom: 20px;
-		}
+	<div class="page--articles">
+		<div class="news-wrap">
+			<div class="news-header">
+				<h1>Tous nos contenus</h1>
+				<a href="{{ path('app_article_new') }}" class="btn-primary">Écrire un article</a>
+			</div>
 
-		.table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-bottom: 20px;
-			background: #fff;
-			border-radius: 8px;
-			overflow: hidden;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-		}
+			{% if articles is not empty %}
+				<ul class="news-list">
+					{% for article in articles %}
+						<li class="news-item">
+							<a
+								href="{{ path('app_article_show', {'id': article.id}) }}" class="thumb">
+								{# Image: VichUploader d'abord #}
+								{% set img = vich_uploader_asset(article, 'imageFile') %}
 
-		.table thead {
-			background-color: #343a40;
-			color: #fff;
-		}
+								{% if img %}
+									<img src="{{ img }}" alt="{{ article.titre }}" class="news-thumb">
+								{% else %}
+									<div class="thumb-placeholder">{{ article.titre|slice(0,1)|upper }}</div>
+								{% endif %}
+							</a>
 
-		.table th,
-		.table td {
-			padding: 12px 15px;
-			text-align: left;
-			border-bottom: 1px solid #ddd;
-		}
+							<div class="news-content">
+								<time class="date">{{ article.date ? article.date|date('d MMM. Y') : '' }}</time>
 
-		.table tr:hover {
-			background-color: #f1f1f1;
-		}
+								<h2 class="title">
+									<a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.titre }}</a>
+								</h2>
 
-		a {
-			text-decoration: none;
-			color: #0d6efd;
-			font-weight: bold;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-
-		.create-btn {
-			display: inline-block;
-			padding: 10px 15px;
-			background-color: #198754;
-			color: #fff !important;
-			border-radius: 6px;
-			transition: background 0.2s ease;
-		}
-		.create-btn:hover {
-			background-color: #146c43;
-		}
-	</style>
-
-	<h1>Liste des Articles</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Titre</th>
-				<th>Contenu</th>
-				<th>Auteur</th>
-				<th>Date</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for article in articles %}
-				<tr>
-					<td>{{ article.id }}</td>
-					<td>{{ article.titre }}</td>
-					<td>{{ article.contenu|slice(0, 80) }}
-						{% if article.contenu|length > 80 %}...
-						{% endif %}
-					</td>
-					<td>{{ article.auteur ? article.auteur.pseudo : 'Inconnu' }}</td>
-					<td>{{ article.date ? article.date|date('d/m/Y H:i') : '' }}</td>
-					<td>
-						<a href="{{ path('app_article_show', {'id': article.id}) }}">👁️ Voir</a>
-						{% if is_granted('ROLE_ADMIN') %}
-							|
-							<a href="{{ path('app_article_edit', {'id': article.id}) }}">✏️ Modifier</a>
-							<span>
-								{{ include('article/_delete_form.html.twig') }}
-							</span>
-						{% endif %}
-					</td>
-				</tr>
+								<p class="excerpt">
+									{{ article.contenu|striptags|slice(0, 220) }}
+									{% if article.contenu|striptags|length > 220 %}…
+									{% endif %}
+								</p>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
 			{% else %}
-				<tr>
-					<td colspan="6">Aucun article trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	{% if is_granted('ROLE_ADMIN') %}
-		<a href="{{ path('app_article_new') }}" class="create-btn">Créer un article</a>
-	{% endif %}
+				<div class="news-empty">Aucun article trouvé.</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

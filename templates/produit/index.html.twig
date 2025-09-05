@@ -1,32 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Boufefetique{% endblock %}
+{% block title %}Boutique
+{% endblock %}
 
 {% block body %}
-<div class="boutique nova">
-    <h1>Boutique</h1>
-    <div class="container">
-        <div class="products-container">
-            {% for pagination in paginations %}
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ pagination.nom }}</h5>
-                        <img src="{{ vich_uploader_asset(pagination, 'imageFile')}}" alt="{{ pagination.nom }}">
-                        <p class="card-text">{{ pagination.prix }} €</p>
-                        <br>
-                        <a class="lien_produit" href="{{ path('app_produit_show', {'id': pagination.id}) }}">Voir le produit</a>
-                    </div>
-                </div>
-            {% else %}
-                <p>Aucun produit disponible pour le moment.</p>
-            {% endfor %}
-        </div>
+	<div class="boutique nova">
+		<h1>Boutique</h1>
+		<div class="container">
+			<div class="products-container">
+				{% for pagination in paginations %}
+					<div class="card">
+						<div class="image-wrapper">
+							<img src="{{ vich_uploader_asset(pagination, 'imageFile') }}" alt="{{ pagination.nom }}">
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ pagination.nom }}</h5>
+							<p class="card-text">{{ pagination.prix }}
+								€</p>
+							<a class="lien_produit" href="{{ path('app_produit_show', {'id': pagination.id}) }}">Voir le produit</a>
+						</div>
+					</div>
+				{% endfor %}
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_produit_new') }}">Nouveau produit</a>
-        {% endif %}
-    </div>
+			</div>
 
-    {{ knp_pagination_render(paginations) }}
-</div>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="btn-admin-new" href="{{ path('app_produit_new') }}">Nouveau produit</a>
+			{% endif %}
+		</div>
+
+		{{ knp_pagination_render(paginations) }}
+	</div>
 {% endblock %}

@@ -26,10 +26,13 @@ security:
             user_checker: App\Security\UtilisateurChecker
 
             form_login:
-                username_parameter: _email
                 login_path: app_login
                 check_path: app_login
+                username_parameter: _username
+                password_parameter: _password
                 enable_csrf: true
+                csrf_parameter: _csrf_token
+                csrf_token_id: authenticate
 
             logout:
                 path: /logout

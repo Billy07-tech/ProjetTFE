@@ -1,4 +1,34 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+{% form_theme form '@FOSCKEditor/Form/ckeditor_widget.html.twig' %}
+
+{{ form_start(form, { attr: { class: (form_class is defined ? form_class : 'na-form') } }) }}
+
+  {% for field in form %}
+    {% if field.vars.name != '_token' %}
+      {% set isCk = 'ckeditor' in field.vars.block_prefixes %}
+
+      <div class="na-field">
+        {{ form_label(field, null, { label_attr: { class: 'na-label' } }) }}
+
+        {# Ne pas injecter d'attributs sur le widget CKEditor #}
+        {% if isCk %}
+          {{ form_widget(field) }}
+        {% else %}
+          {{ form_widget(field, { attr: { class: 'na-input' } }) }}
+        {% endif %}
+
+        {{ form_help(field, { help_attr: { class: 'na-help' } }) }}
+        {{ form_errors(field) }}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+
+  {{ form_rest(form) }}
+
+  <div class="na-actions">
+    <button class="na-btn na-btn--primary">
+      {{ button_label|default('Enregistrer') }}
+    </button>
+  </div>
+
 {{ form_end(form) }}

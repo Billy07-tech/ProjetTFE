@@ -8,14 +8,26 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class, ['label' => 'Titre'])
-            ->add('contenu', TextareaType::class, ['label' => 'Contenu']);
+            ->add('titre')
+            ->add('contenu', CKEditorType::class, [
+                'label' => 'Contenu de l’article',
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'label' => 'Image',
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

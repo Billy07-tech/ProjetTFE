@@ -23,7 +23,6 @@
 						<span class="brand-name">{{ app_name }}</span>
 					</a>
 
-					<a href="{{ path('app_accueil') }}">Accueil</a>
 					<a href="{{ path('app_article_index') }}">Actualités</a>
 					<a href="{{ path('app_produit_index') }}">Boutique</a>
 					<a href="{{ path('app_regle') }}">Règles</a>
@@ -38,6 +37,11 @@
 							<a href="{{ path('app_administrateur') }}">Administration</a>
 						{% endif %}
 					{% endif %}
+
+					<a class="cart-link" href="{{ path('panier_index') }}">
+						<img src="{{ asset('nova/img/panier.svg') }}" alt="Panier" class="cart-icon">
+					</a>
+
 
 					<a class="btn" href="{{ path('app_regle') }}">Jouer maintenant</a>
 				</div>
