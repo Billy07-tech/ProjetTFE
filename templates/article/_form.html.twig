@@ -1,34 +1,39 @@
-{% form_theme form '@FOSCKEditor/Form/ckeditor_widget.html.twig' %}
+{# _form.html.twig #}
+{{ form_start(form, { attr: { class: 'nova-form' } }) }}
 
-{{ form_start(form, { attr: { class: (form_class is defined ? form_class : 'na-form') } }) }}
+{{ form_row(form.titre, {
+  label: 'Titre',
+  label_attr: { class: 'nova-label' },
+  attr: { class: 'nova-input' }
+}) }}
 
-  {% for field in form %}
-    {% if field.vars.name != '_token' %}
-      {% set isCk = 'ckeditor' in field.vars.block_prefixes %}
+{{ form_row(form.contenu, {
+  label: 'Contenu',
+  label_attr: { class: 'nova-label' },
+  attr: { class: 'nova-textarea' }
+}) }}
 
-      <div class="na-field">
-        {{ form_label(field, null, { label_attr: { class: 'na-label' } }) }}
+{% if form.imageFile is defined %}
+  {{ form_row(form.imageFile, {
+    label: 'Image',
+    label_attr: { class: 'nova-label' },
+    attr: { class: 'nova-input' }
+  }) }}
+{% endif %}
 
-        {# Ne pas injecter d'attributs sur le widget CKEditor #}
-        {% if isCk %}
-          {{ form_widget(field) }}
-        {% else %}
-          {{ form_widget(field, { attr: { class: 'na-input' } }) }}
-        {% endif %}
-
-        {{ form_help(field, { help_attr: { class: 'na-help' } }) }}
-        {{ form_errors(field) }}
-      </div>
+{% for child in form %}
+  {% if child.vars.name not in ['_token','titre','contenu','imageFile'] %}
+    {% set cssClass = 'nova-input' %}
+    {% if 'choice' in child.vars.block_prefixes %}
+      {% set cssClass = 'nova-select' %}
     {% endif %}
-  {% endfor %}
 
+    {{ form_row(child, {
+      label_attr: { class: 'nova-label' },
+      attr: { class: cssClass }
+    }) }}
+  {% endif %}
+{% endfor %}
 
-  {{ form_rest(form) }}
-
-  <div class="na-actions">
-    <button class="na-btn na-btn--primary">
-      {{ button_label|default('Enregistrer') }}
-    </button>
-  </div>
-
+<button class="nova-btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

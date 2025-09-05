@@ -1868,4 +1868,730 @@ select:-webkit-autofill {
     }
 
 
+    /* ==============================
+   Article — edit
+
+   ============================== */
+
+    /* Container et cartes */
+    .nova-container {
+        max-width: 700px;
+        margin: 48px auto;
+        padding: 0 18px;
+    }
+
+    .nova-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 24px;
+    }
+
+    /* Titre */
+    .nova-title {
+        margin: 0 0 18px;
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--text);
+        text-align: center;
+    }
+
+    /* Formulaire */
+    .nova-form {
+        display: grid;
+        gap: 14px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+    }
+
+    .nova-label {
+        display: block;
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: 6px;
+        font-size: .95rem;
+    }
+
+    /* Champs */
+    .nova-input,
+    .nova-textarea,
+    .nova-select {
+        width: 100%;
+        appearance: none;
+        background: #fff;
+        color: var(--text);
+        border: 1px solid #d7d7d7;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 1rem;
+        transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .nova-textarea {
+        min-height: 140px;
+        resize: vertical;
+    }
+
+    .nova-input::placeholder,
+    .nova-textarea::placeholder {
+        color: #999;
+    }
+
+    .nova-input:focus,
+    .nova-textarea:focus,
+    .nova-select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: var(--ring);
+    }
+
+    /* Groupes radios/checkbox (expanded) */
+    .nova-choice-group {
+        padding: 10px 12px;
+        border: 1px dashed var(--border);
+        border-radius: 6px;
+        background: #fafafa;
+    }
+
+    .nova-choice-group .form-check {
+        margin-bottom: 8px;
+    }
+
+    .nova-choice-group .form-check:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Boutons */
+    .nova-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background .15s ease, box-shadow .15s ease, transform .04s ease;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, .18);
+    }
+
+    .nova-btn:hover {
+        background: var(--primary-600);
+    }
+
+    .nova-btn:active {
+        transform: translateY(1px);
+    }
+
+    .nova-btn:focus {
+        outline: none;
+        box-shadow: var(--ring);
+    }
+
+    /* Variantes */
+    .nova-btn--danger {
+        background: var(--danger);
+        box-shadow: 0 4px 12px rgba(229, 57, 53, .18);
+    }
+
+    .nova-btn--danger:hover {
+        background: #d32f2f;
+    }
+
+    .nova-btn--light {
+        background: transparent;
+        color: var(--primary);
+        border-color: var(--primary);
+        border: 1px solid rgba(76, 175, 80, .55);
+        box-shadow: none;
+    }
+
+    .nova-btn--light:hover {
+        background: rgba(76, 175, 80, .08);
+    }
+
+    /* Lien retour */
+    .nova-btn-back {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .nova-btn-back:hover {
+        text-decoration: underline;
+    }
+
+    /* Erreurs Symfony */
+    .form-error-message,
+    .form-errors,
+    .nova-errors {
+        color: var(--danger);
+        font-size: .95rem;
+        margin-top: -4px;
+    }
+
+
+    /* Override pour Bootstrap .table/.table-bordered — grille large & espacée */
+
+    :root {
+        --assist-border: #e5e7eb;
+        --assist-shadow: 0 8px 24px rgba(17, 24, 39, .06);
+        --assist-font: 1.05rem;
+        --assist-row-gap: 10px;
+    }
+
+    /* large container si tu gardes .container bootstrap */
+    .container.mt-5 {
+        max-width: 1280px !important;
+    }
+
+    /* wrapper responsive déjà présent: .table-responsive */
+
+    /* header plus lisible */
+    .table thead.thead-dark th,
+    .table thead th {
+        background: #111827 !important;
+        color: #fff !important;
+        padding: 14px 16px !important;
+        border-bottom: none !important;
+        font-size: var(--assist-font);
+    }
+
+    /* mode spacious: on simule un gap en ajoutant marge + ombre par ligne */
+    .table.table-bordered {
+        border-collapse: separate !important;
+        border-spacing: 0 var(--assist-row-gap) !important;
+        background: transparent !important;
+        font-size: var(--assist-font);
+        border: none !important;
+        /* on laisse les “cards” gérer leur bord */
+    }
+
+    .table.table-bordered tbody tr {
+        background: #fff;
+        box-shadow: var(--assist-shadow);
+    }
+
+    .table.table-bordered tbody td,
+    .table.table-bordered tbody th {
+        padding: 16px 18px !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    /* coins arrondis par ligne */
+    .table.table-bordered tbody tr td:first-child,
+    .table.table-bordered tbody tr th:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .table.table-bordered tbody tr td:last-child,
+    .table.table-bordered tbody tr th:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* zébrage léger si besoin */
+    .table tbody tr:nth-of-type(odd) {
+        background: rgba(17, 24, 39, 0.02);
+    }
+
+    /* hover */
+    .table tbody tr:hover td {
+        background: rgba(37, 99, 235, 0.06) !important;
+    }
+
+    /* colonnes */
+    th[scope="col"]:first-child,
+    .table tbody td:first-child {
+        width: 120px;
+        white-space: nowrap;
+    }
+
+    .table tbody td:nth-child(2) {
+        width: 380px;
+        word-break: break-word;
+    }
+
+    /* message longue */
+    .table tbody td:nth-child(3) .assist-message {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.5;
+    }
+
+    /* centre */
+    .text-center {
+        text-align: center !important;
+    }
+
+
+    /* === users.css — Liste des Utilisateurs (grille large + espacée) === */
+    :root {
+        --users-bg: #f7f8fa;
+        --users-card: #ffffff;
+        --users-text: #111827;
+        --users-muted: #6b7280;
+        --users-border: #e5e7eb;
+        --users-primary: #2563eb;
+        --users-danger: #dc3545;
+        --users-radius: 12px;
+        --users-shadow: 0 8px 24px rgba(17, 24, 39, .06);
+
+        --users-max: 1280px;
+        --users-font: 1.05rem;
+        --users-cell-pad: 16px 18px;
+        --users-row-gap: 10px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --users-bg: #0b0d12;
+            --users-card: #0f131a;
+            --users-text: #e5e7eb;
+            --users-muted: #9ca3af;
+            --users-border: #1f2937;
+            --users-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+        }
+    }
+
+    /* Layout */
+    .users-container {
+        max-width: var(--users-max);
+        margin: 56px auto;
+        padding: 0 24px;
+    }
+
+    .users-card {
+        background: var(--users-card);
+        border: 1px solid var(--users-border);
+        border-radius: var(--users-radius);
+        box-shadow: var(--users-shadow);
+        padding: 28px;
+    }
+
+    /* Titre */
+    .users-title {
+        margin: 0 0 24px;
+        font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+        font-weight: 800;
+        color: var(--users-text);
+        text-align: center;
+    }
+
+    /* Alertes flash Symfony (optionnel) */
+    .alert {
+        border-radius: 10px;
+    }
+
+    /* Table wrapper */
+    .users-table-wrap {
+        overflow: auto;
+        border-radius: 12px;
+        border: 1px solid var(--users-border);
+        background: var(--users-card);
+        padding: 6px;
+    }
+
+    /* Table */
+    .users-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: transparent;
+        color: var(--users-text);
+        font-size: var(--users-font);
+    }
+
+    /* Mode aéré (chaque ligne comme une carte) */
+    .users-table--spacious {
+        border-collapse: separate !important;
+        border-spacing: 0 var(--users-row-gap);
+    }
+
+    /* Header */
+    .users-table thead th {
+        background: #111827;
+        color: #fff;
+        text-align: left;
+        padding: 14px 16px;
+        letter-spacing: .3px;
+        border-bottom: none;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    /* Cellules */
+    .users-table tbody td {
+        padding: var(--users-cell-pad);
+        border-bottom: 1px solid var(--users-border);
+        vertical-align: middle;
+        background: var(--users-card);
+    }
+
+    /* En mode “spacious” : pas de trait, coins arrondis + ombre */
+    .users-table--spacious tbody td {
+        border-bottom: none;
+    }
+
+    .users-table--spacious tbody tr {
+        background: var(--users-card);
+        box-shadow: var(--users-shadow);
+    }
+
+    .users-table--spacious tbody tr td:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .users-table--spacious tbody tr td:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* Hover */
+    .users-table tbody tr:hover td {
+        background: rgba(37, 99, 235, 0.06);
+    }
+
+    /* Colonnes (adapter si besoin) */
+    .users-col-id {
+        width: 110px;
+        white-space: nowrap;
+    }
+
+    .users-col-pseudo {
+        width: 180px;
+    }
+
+    .users-col-prenom {
+        width: 180px;
+    }
+
+    .users-col-nom {
+        width: 180px;
+    }
+
+    .users-col-email {
+        width: 360px;
+        word-break: break-word;
+    }
+
+    .users-col-roles {
+        width: 260px;
+    }
+
+    .users-col-actions {
+        width: 160px;
+        white-space: nowrap;
+    }
+
+    /* Actions */
+    .users-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Boutons */
+    .users-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: #e5e7eb;
+        color: #111827;
+        font-weight: 600;
+        font-size: .98rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background .15s ease, transform .04s ease, box-shadow .15s ease;
+    }
+
+    .users-btn:hover {
+        background: #d1d5db;
+    }
+
+    .users-btn:active {
+        transform: translateY(1px);
+    }
+
+    .users-btn--danger {
+        background: var(--users-danger);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, .2);
+    }
+
+    .users-btn--danger:hover {
+        background: #c82333;
+    }
+
+    /* Petits écrans */
+    @media (max-width: 900px) {
+        :root {
+            --users-cell-pad: 14px;
+        }
+
+        .users-col-email {
+            width: 280px;
+        }
+
+        .users-col-roles {
+            width: 220px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .users-container {
+            padding: 0 16px;
+            margin: 40px auto;
+        }
+
+        .users-title {
+            margin-bottom: 18px;
+        }
+    }
+
+
+    /* =========================================================
+   Page — Profil utilisateur (profil-*)
+   ========================================================= */
+
+    .profil-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 30px;
+        background: #fff;
+        color : #2563eb;
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .profil-container h1 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .profil-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--brand, #2563eb);
+        margin-bottom: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    }
+
+    .profil-info {
+        text-align: left;
+        margin: 24px 0;
+    }
+
+    .profil-info p {
+        font-size: 1rem;
+        padding: 10px 0;
+        border-bottom: 1px solid #8f24d2;
+        margin: 0;
+    }
+
+    .profil-info strong {
+        color: #444;
+    }
+
+    .profil-info .btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: var(--brand, #2563eb);
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background .2s, transform .1s;
+    }
+
+    .profil-info .btn:hover {
+        background: #0056b3;
+        transform: translateY(-1px);
+    }
+
+    .btn-edit {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        background: var(--brand, #2563eb);
+        color: #ffffff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background .2s, transform .1s;
+    }
+
+    .btn-edit:hover {
+        background: #0056b3;
+        transform: translateY(-1px);
+    }
+
+
+/* =========================================================
+   Page — Profil (vue + édition)  — classes .profil-*
+   ========================================================= */
+
+:root{
+  --profil-panel:#ffffff;
+  --profil-text:#222;
+  --profil-muted:#555;
+  --profil-border:#e6e8ef;
+  --profil-primary:#007bff;
+  --profil-primary-600:#0056b3;
+  --profil-shadow:0 6px 20px rgba(0,0,0,.10);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --profil-panel:#121826;
+    --profil-text:#e6edf5;
+    --profil-muted:#94a3b8;
+    --profil-border:#1f2535;
+    --profil-shadow:0 10px 28px rgba(0,0,0,.45);
+  }
+}
+
+/* Conteneur */
+.profil-container{
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: var(--profil-panel);
+  border-radius: 15px;
+  box-shadow: var(--profil-shadow);
+  color: var(--profil-text);
+}
+
+/* Titre */
+.profil-container h1{
+  text-align:center;
+  margin-bottom: 26px;
+  font-size: 2rem;
+}
+
+/* Alertes flash */
+.profil-container .alert{
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.profil-container .alert-success{
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Avatar */
+.avatar-preview{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--profil-primary);
+  display: block;
+  margin: 0 auto 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+/* Champs (couvre Bootstrap ou non-Bootstrap) */
+.profil-container label{
+  display:block;
+  margin: 8px 0 6px;
+  font-weight: 600;
+  color: var(--profil-muted);
+}
+
+.profil-container .form-row{ /* si tu utilises .form-row custom */
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.profil-container .form-control,
+.profil-container input[type="text"],
+.profil-container input[type="email"],
+.profil-container input[type="file"]{
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--profil-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--profil-text);
+  font-size: 1rem;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+@media (prefers-color-scheme: dark){
+  .profil-container .form-control,
+  .profil-container input[type="text"],
+  .profil-container input[type="email"],
+  .profil-container input[type="file"]{
+    background: #1a2330;
+  }
+}
+
+.profil-container .form-control:focus,
+.profil-container input[type="text"]:focus,
+.profil-container input[type="email"]:focus,
+.profil-container input[type="file"]:focus{
+  outline: none;
+  border-color: var(--profil-primary);
+  box-shadow: 0 0 0 3px rgba(0,123,255,.25);
+}
+
+/* Bouton */
+.btn-submit{
+  display:inline-block;
+  padding: 12px 20px;
+  background: var(--profil-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, transform .08s ease, box-shadow .15s ease;
+  box-shadow: 0 6px 18px rgba(0,123,255,.18);
+}
+
+.btn-submit:hover{ background: var(--profil-primary-600); transform: translateY(-1px); }
+.btn-submit:active{ transform: translateY(0); }
+
+/* Responsive */
+@media (max-width:768px){
+  .profil-container{ margin: 30px 16px; padding: 22px; }
+  .profil-container h1{ font-size: 1.6rem; }
+}
+
+
+
+
 }

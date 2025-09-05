@@ -1,149 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier mon profil
-{% endblock %}
+{% block title %}Modifier mon profil{% endblock %}
 
-{% block stylesheets %}
-	<style>
-		body {
-			font-family: 'Roboto', sans-serif;
-			background-color: #f0f2f5;
-			margin: 0;
-			padding: 0;
-		}
-
-		.profil-container {
-			max-width: 600px;
-			margin: 50px auto;
-			padding: 30px;
-			background-color: #ffffff;
-			border-radius: 15px;
-			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-		}
-
-		.profil-container h1 {
-			text-align: center;
-			margin-bottom: 30px;
-			color: #333;
-			font-size: 2rem;
-		}
-
-		.form-row {
-			display: flex;
-			flex-direction: column;
-			margin-bottom: 20px;
-		}
-
-		.form-row label {
-			margin-bottom: 5px;
-			font-weight: 500;
-			color: #555;
-		}
-
-		.form-row input[type="text"],
-		.form-row input[type="email"],
-		.form-row input[type="file"] {
-			padding: 10px 15px;
-			border: 1px solid #ddd;
-			border-radius: 8px;
-			font-size: 1rem;
-			transition: border-color 0.3s ease, box-shadow 0.3s ease;
-		}
-
-		.form-row input[type="text"]:focus,
-		.form-row input[type="email"]:focus,
-		.form-row input[type="file"]:focus {
-			border-color: #007bff;
-			box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-			outline: none;
-		}
-
-		.btn-submit {
-			padding: 12px 20px;
-			background-color: #007bff;
-			color: #fff;
-			font-size: 1rem;
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			transition: background-color 0.3s ease, transform 0.2s ease;
-		}
-
-		.btn-submit:hover {
-			background-color: #0056b3;
-			transform: translateY(-2px);
-		}
-
-		.alert {
-			padding: 10px 15px;
-			border-radius: 8px;
-			margin-bottom: 20px;
-		}
-
-		.alert-success {
-			background-color: #d4edda;
-			color: #155724;
-			border: 1px solid #c3e6cb;
-		}
-
-		/* Option avatar preview */
-		.avatar-preview {
-			width: 120px;
-			height: 120px;
-			border-radius: 50%;
-			object-fit: cover;
-			margin-bottom: 15px;
-			border: 2px solid #007bff;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-		}
-
-		@media(max-width: 768px) {
-			.profil-container {
-				margin: 30px 20px;
-				padding: 20px;
-			}
-			.profil-container h1 {
-				font-size: 1.6rem;
-			}
-		}
-	</style>
-{% endblock %}
 
 {% block body %}
-	<div class="profil-container">
-		<h1>Modifier mon Profil</h1>
+  <div class="profil-container">
+    <h1>Modifier mon Profil</h1>
 
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
 
-		{# Avatar preview #}
-		<img id="avatarPreview" src="{{ asset(user.avatar ? 'uploads/avatars/' ~ user.avatar : 'images/default-avatar.png') }}" alt="Avatar" class="avatar-preview">
+    <img id="avatarPreview"
+         src="{{ asset(user.avatar ? 'uploads/avatars/' ~ user.avatar : 'images/default-avatar.png') }}"
+         alt="Avatar"
+         class="avatar-preview">
 
-		{{ form_start(profilForm, {'attr': {'enctype':'multipart/form-data'}}) }}
-		{{ form_row(profilForm.pseudo) }}
-		{{ form_row(profilForm.prenom) }}
-		{{ form_row(profilForm.nom) }}
-		{{ form_row(profilForm.email) }}
-		{{ form_row(profilForm.avatar, {'attr': {'onchange': 'previewAvatar(event)'}}) }}
-		<button class="btn-submit mt-3">Enregistrer</button>
-		{{ form_end(profilForm) }}
-	</div>
+    {{ form_start(profilForm, {'attr': {'enctype':'multipart/form-data'}}) }}
+      {{ form_row(profilForm.pseudo) }}
+      {{ form_row(profilForm.prenom) }}
+      {{ form_row(profilForm.nom) }}
+      {{ form_row(profilForm.email) }}
+      {{ form_row(profilForm.avatar, {'attr': {'onchange': 'previewAvatar(event)'}}) }}
+      <button class="btn-submit mt-3">Enregistrer</button>
+    {{ form_end(profilForm) }}
+  </div>
 
-	<script>
-		function previewAvatar(event) {
-const input = event.target;
-if (input.files && input.files[0]) {
-const reader = new FileReader();
-reader.onload = function (e) {
-document.getElementById('avatarPreview').src = e.target.result;
-};
-reader.readAsDataURL(input.files[0]);
-}
-}
-	</script>
+  <script>
+    function previewAvatar(event){
+      const input = event.target;
+      if(input.files && input.files[0]){
+        const reader = new FileReader();
+        reader.onload = e => document.getElementById('avatarPreview').src = e.target.result;
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
 {% endblock %}

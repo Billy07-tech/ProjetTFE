@@ -1,114 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Utilisateurs
-{% endblock %}
+{% block title %}Liste des Utilisateurs{% endblock %}
 
 {% block stylesheets %}
-	<style>
-		.table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-bottom: 20px;
-		}
-
-		.table th,
-		.table td {
-			padding: 10px;
-			border: 1px solid #dee2e6;
-		}
-
-		.table th {
-			background-color: #343a40;
-			color: #fff;
-		}
-
-		.table tbody tr:nth-child(even) {
-			background-color: #f8f9fa;
-		}
-
-		.btn {
-			display: inline-block;
-			padding: 0.375rem 0.75rem;
-			font-size: 1rem;
-			line-height: 1.5;
-			border-radius: 0.25rem;
-			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-			text-decoration: none;
-		}
-
-		.btn-info {
-			background-color: #bbbbbb;
-			text-decoration: none;
-			color: inherit;
-		}
-
-		.btn-info:hover {
-			color: #fff;
-		}
-
-		.btn-danger {
-			background-color: #dc3545;
-			color: #fff;
-			border: none;
-			cursor: pointer;
-			padding: 0.375rem 0.75rem;
-			border-radius: 0.25rem;
-		}
-
-		.btn-danger:hover {
-			background-color: #c82333;
-		}
-	</style>
+  <link rel="stylesheet" href="{{ asset('css/users.css') }}?v={{ random() }}">
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col">
-				<h1 class="text-center mb-4">Liste des Utilisateurs</h1>
+  <div class="users-container">
+    <div class="users-card">
 
-				{% for message in app.flashes('success') %}
-					<div class="alert alert-success">{{ message }}</div>
-				{% endfor %}
+      <h1 class="users-title">Liste des Utilisateurs</h1>
 
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Id</th>
-								<th scope="col">Pseudo</th>
-								<th scope="col">Prénom</th>
-								<th scope="col">Nom</th>
-								<th scope="col">Email</th>
-								<th scope="col">Rôles</th>
-								<th scope="col">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for utilisateur in utilisateurs %}
-								<tr>
-									<td>{{ utilisateur.id }}</td>
-									<td>{{ utilisateur.pseudo }}</td>
-									<td>{{ utilisateur.prenom }}</td>
-									<td>{{ utilisateur.nom }}</td>
-									<td>{{ utilisateur.email }}</td>
-									<td>{{ utilisateur.roles|join(', ') }}</td>
-									<td>
-										<form action="{{ path('app_utilisateur_supprimer', {'id': utilisateur.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
-											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
-											<button type="submit" class="btn btn-danger">Bannir</button>
-										</form>
-									</td>
-								</tr>
-							{% else %}
-								<tr>
-									<td colspan="7" class="text-center">Aucun utilisateur trouvé</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
+
+      <div class="users-table-wrap">
+        <table class="users-table users-table--spacious">
+          <thead>
+            <tr>
+              <th class="users-col-id">Id</th>
+              <th class="users-col-pseudo">Pseudo</th>
+              <th class="users-col-prenom">Prénom</th>
+              <th class="users-col-nom">Nom</th>
+              <th class="users-col-email">Email</th>
+              <th class="users-col-roles">Rôles</th>
+              <th class="users-col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for utilisateur in utilisateurs %}
+              <tr>
+                <td class="users-col-id">{{ utilisateur.id }}</td>
+                <td class="users-col-pseudo">{{ utilisateur.pseudo }}</td>
+                <td class="users-col-prenom">{{ utilisateur.prenom }}</td>
+                <td class="users-col-nom">{{ utilisateur.nom }}</td>
+                <td class="users-col-email">{{ utilisateur.email }}</td>
+                <td class="users-col-roles">{{ utilisateur.roles|join(', ') }}</td>
+                <td class="users-col-actions">
+                  <form action="{{ path('app_utilisateur_supprimer', {'id': utilisateur.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');" class="users-actions">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+                    <button type="submit" class="users-btn users-btn--danger">Bannir</button>
+                  </form>
+                </td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="7" class="users-col-empty" style="text-align:center;">Aucun utilisateur trouvé</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
 {% endblock %}
