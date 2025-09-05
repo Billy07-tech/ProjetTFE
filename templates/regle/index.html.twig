@@ -1,24 +1,166 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Les règles du jeu de dames{% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-		h1 {
-			text-align: center;
-		}
-	</style>
+<div class="doc-nova">
+  <div class="rules-wrapper">
+    <h1>Les règles du jeu de dames</h1>
 
-	<div>
-		<h1>Les règles du jeu de dames</h1>
-	</div>
+    <div class="video-container">
+      <iframe width="1431" height="805" src="https://www.youtube.com/embed/3fTVO5ks3o0"
+        title="comment jouer aux DAMES / JEUX DE DAMES (instructions, gameplay et règles) | SPIELREGELN TV"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <p>Le jeu de dames se joue sur un damier de 100 cases alternées claires et foncées.</p>
+
+    <h2>Disposition initiale</h2>
+    <p>Chaque joueur dispose de 20 pions placés sur les cases foncées des quatre premières rangées.</p>
+    <svg class="rule-image" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="0" width="40" height="40" fill="#555"/>
+      <rect x="80" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="0" width="40" height="40" fill="#555"/>
+      <rect x="0" y="40" width="40" height="40" fill="#555"/>
+      <rect x="40" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="40" width="40" height="40" fill="#555"/>
+      <rect x="120" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="0" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="80" width="40" height="40" fill="#555"/>
+      <rect x="80" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="80" width="40" height="40" fill="#555"/>
+      <rect x="0" y="120" width="40" height="40" fill="#555"/>
+      <rect x="40" y="120" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="120" width="40" height="40" fill="#555"/>
+      <rect x="120" y="120" width="40" height="40" fill="#eee"/>
+      <circle cx="60.0" cy="20.0" r="16.0" fill="#000"/>
+      <circle cx="140.0" cy="20.0" r="16.0" fill="#000"/>
+      <circle cx="20.0" cy="60.0" r="16.0" fill="#000"/>
+      <circle cx="100.0" cy="60.0" r="16.0" fill="#000"/>
+      <circle cx="60.0" cy="100.0" r="16.0" fill="#c00"/>
+      <circle cx="140.0" cy="100.0" r="16.0" fill="#c00"/>
+      <circle cx="20.0" cy="140.0" r="16.0" fill="#c00"/>
+      <circle cx="100.0" cy="140.0" r="16.0" fill="#c00"/>
+    </svg>
+
+    <h2>Déplacements</h2>
+    <ul>
+      <li>Les pions se déplacent en diagonale vers l'avant d'une case à la fois.</li>
+      <li>Les pièces ne peuvent pas se déplacer sur les cases claires.</li>
+    </ul>
+    <svg class="rule-image" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="0" width="40" height="40" fill="#555"/>
+      <rect x="80" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="0" width="40" height="40" fill="#555"/>
+      <rect x="0" y="40" width="40" height="40" fill="#555"/>
+      <rect x="40" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="40" width="40" height="40" fill="#555"/>
+      <rect x="120" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="0" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="80" width="40" height="40" fill="#555"/>
+      <rect x="80" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="80" width="40" height="40" fill="#555"/>
+      <rect x="0" y="120" width="40" height="40" fill="#555"/>
+      <rect x="40" y="120" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="120" width="40" height="40" fill="#555"/>
+      <rect x="120" y="120" width="40" height="40" fill="#eee"/>
+      <circle cx="60.0" cy="60.0" r="16.0" fill="#c00"/>
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="#000"/>
+        </marker>
+      </defs>
+      <line x1="60.0" y1="60.0" x2="100.0" y2="100.0" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    </svg>
+
+    <h2>Prises</h2>
+    <ul>
+      <li>Une prise est obligatoire dès qu'elle est possible.</li>
+      <li>La prise se fait en sautant par-dessus un pion adverse diagonalement.</li>
+    </ul>
+    <svg class="rule-image" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="0" width="40" height="40" fill="#555"/>
+      <rect x="80" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="0" width="40" height="40" fill="#555"/>
+      <rect x="0" y="40" width="40" height="40" fill="#555"/>
+      <rect x="40" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="40" width="40" height="40" fill="#555"/>
+      <rect x="120" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="0" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="80" width="40" height="40" fill="#555"/>
+      <rect x="80" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="80" width="40" height="40" fill="#555"/>
+      <rect x="0" y="120" width="40" height="40" fill="#555"/>
+      <rect x="40" y="120" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="120" width="40" height="40" fill="#555"/>
+      <rect x="120" y="120" width="40" height="40" fill="#eee"/>
+      <circle cx="100.0" cy="100.0" r="16.0" fill="#000"/>
+      <circle cx="60.0" cy="60.0" r="16.0" fill="#c00"/>
+      <defs>
+        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="#000"/>
+        </marker>
+      </defs>
+      <line x1="60.0" y1="60.0" x2="140.0" y2="140.0" stroke="#000" stroke-width="2" marker-end="url(#arrow2)"/>
+    </svg>
+
+    <h2>Promotion en dame</h2>
+    <p>Un pion qui atteint la dernière rangée adverse est promu en <em>dame</em>, pouvant se déplacer vers l'avant et l'arrière.</p>
+    <svg class="rule-image" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="0" width="40" height="40" fill="#555"/>
+      <rect x="80" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="0" width="40" height="40" fill="#555"/>
+      <rect x="0" y="40" width="40" height="40" fill="#555"/>
+      <rect x="40" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="40" width="40" height="40" fill="#555"/>
+      <rect x="120" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="0" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="80" width="40" height="40" fill="#555"/>
+      <rect x="80" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="80" width="40" height="40" fill="#555"/>
+      <rect x="0" y="120" width="40" height="40" fill="#555"/>
+      <rect x="40" y="120" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="120" width="40" height="40" fill="#555"/>
+      <rect x="120" y="120" width="40" height="40" fill="#eee"/>
+      <circle cx="60.0" cy="100.0" r="16.0" fill="#c00"/>
+      <circle cx="20.0" cy="140.0" r="16.0" fill="#c00" stroke="#ffd700" stroke-width="4"/>
+      <defs>
+        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="#000"/>
+        </marker>
+      </defs>
+      <line x1="60.0" y1="100.0" x2="20.0" y2="140.0" stroke="#000" stroke-width="2" marker-end="url(#arrow3)"/>
+    </svg>
+
+    <h2>Fin de partie</h2>
+    <p>La partie est gagnée lorsqu'un joueur capture toutes les pièces adverses ou les immobilise.</p>
+    <svg class="rule-image" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="0" width="40" height="40" fill="#555"/>
+      <rect x="80" y="0" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="0" width="40" height="40" fill="#555"/>
+      <rect x="0" y="40" width="40" height="40" fill="#555"/>
+      <rect x="40" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="40" width="40" height="40" fill="#555"/>
+      <rect x="120" y="40" width="40" height="40" fill="#eee"/>
+      <rect x="0" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="40" y="80" width="40" height="40" fill="#555"/>
+      <rect x="80" y="80" width="40" height="40" fill="#eee"/>
+      <rect x="120" y="80" width="40" height="40" fill="#555"/>
+      <rect x="0" y="120" width="40" height="40" fill="#555"/>
+      <rect x="40" y="120" width="40" height="40" fill="#eee"/>
+      <rect x="80" y="120" width="40" height="40" fill="#555"/>
+      <rect x="120" y="120" width="40" height="40" fill="#eee"/>
+      <polygon points="80,20 90,60 130,60 100,80 110,120 80,95 50,120 60,80 30,60 70,60" fill="#ffd700" stroke="#000" stroke-width="2"/>
+    </svg>
+  </div>
+</div>
 {% endblock %}
