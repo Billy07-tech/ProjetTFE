@@ -81,8 +81,11 @@ class PanierController extends AbstractController
         $user = $this->getUser();
         $panier = $user?->getPanier();
         if ($panier) {
-            foreach ($panier->getItems() as $item) $em->remove($item);
+            foreach ($panier->getItems() as $item) {
+                $em->remove($item);
+            }
             $em->remove($panier);
+            $user->setPanier(null);
             $em->flush();
         }
         return $this->redirectToRoute('panier_index');
