@@ -35,13 +35,23 @@ class AdministrateurController extends AbstractController
 
     // Liste des utilisateurs
     #[Route('/app_utilisateur', name: 'users', methods: ['GET'])]
-    public function users(UtilisateurRepository $utilisateurRepository): Response
+    public function users(Request $request, UtilisateurRepository $utilisateurRepository): Response
     {
+        $q = trim((string) $request->query->get('q', ''));
+
+        $qb = $utilisateurRepository->createQueryBuilder('u');
+        if ($q !== '') {
+            $qb->andWhere('LOWER(u.pseudo) LIKE :q OR LOWER(u.email) LIKE :q')
+                ->setParameter('q', '%' . mb_strtolower($q) . '%');
+        }
+
+        $utilisateurs = $qb->orderBy('u.id', 'DESC')->getQuery()->getResult();
+
         return $this->render('administrateur/utilisateur.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
+            'utilisateurs' => $utilisateurs,
+            'q'            => $q,
         ]);
     }
-
     // Suppression d'un utilisateur (CSRF + on empêche l'auto-suppression)
     #[Route('/utilisateurs/{id<\d+>}/delete', name: 'user_delete', methods: ['POST'])]
     public function deleteUser(Request $request, Utilisateur $utilisateur, EntityManagerInterface $em): Response
@@ -86,7 +96,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
 
-    
+
     // Suppression d'une compétition (CSRF)
     #[Route('/competitions/{id<\d+>}/delete', name: 'competition_delete', methods: ['POST'])]
     public function deleteCompetition(Request $request, Competition $comp, EntityManagerInterface $em): Response

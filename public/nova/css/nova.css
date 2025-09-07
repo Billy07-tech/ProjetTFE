@@ -2140,236 +2140,6 @@ select:-webkit-autofill {
     }
 
 
-    /* === users.css — Liste des Utilisateurs (grille large + espacée) === */
-    :root {
-        --users-bg: #f7f8fa;
-        --users-card: #ffffff;
-        --users-text: #111827;
-        --users-muted: #6b7280;
-        --users-border: #e5e7eb;
-        --users-primary: #2563eb;
-        --users-danger: #dc3545;
-        --users-radius: 12px;
-        --users-shadow: 0 8px 24px rgba(17, 24, 39, .06);
-
-        --users-max: 1280px;
-        --users-font: 1.05rem;
-        --users-cell-pad: 16px 18px;
-        --users-row-gap: 10px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --users-bg: #0b0d12;
-            --users-card: #0f131a;
-            --users-text: #e5e7eb;
-            --users-muted: #9ca3af;
-            --users-border: #1f2937;
-            --users-shadow: 0 10px 30px rgba(0, 0, 0, .45);
-        }
-    }
-
-    /* Layout */
-    .users-container {
-        max-width: var(--users-max);
-        margin: 56px auto;
-        padding: 0 24px;
-    }
-
-    .users-card {
-        background: var(--users-card);
-        border: 1px solid var(--users-border);
-        border-radius: var(--users-radius);
-        box-shadow: var(--users-shadow);
-        padding: 28px;
-    }
-
-    /* Titre */
-    .users-title {
-        margin: 0 0 24px;
-        font-size: clamp(1.6rem, 2.2vw, 2.2rem);
-        font-weight: 800;
-        color: var(--users-text);
-        text-align: center;
-    }
-
-    /* Alertes flash Symfony (optionnel) */
-    .alert {
-        border-radius: 10px;
-    }
-
-    /* Table wrapper */
-    .users-table-wrap {
-        overflow: auto;
-        border-radius: 12px;
-        border: 1px solid var(--users-border);
-        background: var(--users-card);
-        padding: 6px;
-    }
-
-    /* Table */
-    .users-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        background: transparent;
-        color: var(--users-text);
-        font-size: var(--users-font);
-    }
-
-    /* Mode aéré (chaque ligne comme une carte) */
-    .users-table--spacious {
-        border-collapse: separate !important;
-        border-spacing: 0 var(--users-row-gap);
-    }
-
-    /* Header */
-    .users-table thead th {
-        background: #111827;
-        color: #fff;
-        text-align: left;
-        padding: 14px 16px;
-        letter-spacing: .3px;
-        border-bottom: none;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-    }
-
-    /* Cellules */
-    .users-table tbody td {
-        padding: var(--users-cell-pad);
-        border-bottom: 1px solid var(--users-border);
-        vertical-align: middle;
-        background: var(--users-card);
-    }
-
-    /* En mode “spacious” : pas de trait, coins arrondis + ombre */
-    .users-table--spacious tbody td {
-        border-bottom: none;
-    }
-
-    .users-table--spacious tbody tr {
-        background: var(--users-card);
-        box-shadow: var(--users-shadow);
-    }
-
-    .users-table--spacious tbody tr td:first-child {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-
-    .users-table--spacious tbody tr td:last-child {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-
-    /* Hover */
-    .users-table tbody tr:hover td {
-        background: rgba(37, 99, 235, 0.06);
-    }
-
-    /* Colonnes (adapter si besoin) */
-    .users-col-id {
-        width: 110px;
-        white-space: nowrap;
-    }
-
-    .users-col-pseudo {
-        width: 180px;
-    }
-
-    .users-col-prenom {
-        width: 180px;
-    }
-
-    .users-col-nom {
-        width: 180px;
-    }
-
-    .users-col-email {
-        width: 360px;
-        word-break: break-word;
-    }
-
-    .users-col-roles {
-        width: 260px;
-    }
-
-    .users-col-actions {
-        width: 160px;
-        white-space: nowrap;
-    }
-
-    /* Actions */
-    .users-actions {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* Boutons */
-    .users-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 8px;
-        border: 1px solid transparent;
-        background: #e5e7eb;
-        color: #111827;
-        font-weight: 600;
-        font-size: .98rem;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background .15s ease, transform .04s ease, box-shadow .15s ease;
-    }
-
-    .users-btn:hover {
-        background: #d1d5db;
-    }
-
-    .users-btn:active {
-        transform: translateY(1px);
-    }
-
-    .users-btn--danger {
-        background: var(--users-danger);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(220, 53, 69, .2);
-    }
-
-    .users-btn--danger:hover {
-        background: #c82333;
-    }
-
-    /* Petits écrans */
-    @media (max-width: 900px) {
-        :root {
-            --users-cell-pad: 14px;
-        }
-
-        .users-col-email {
-            width: 280px;
-        }
-
-        .users-col-roles {
-            width: 220px;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .users-container {
-            padding: 0 16px;
-            margin: 40px auto;
-        }
-
-        .users-title {
-            margin-bottom: 18px;
-        }
-    }
-
 
     /* =========================================================
    Page — Profil utilisateur (profil-*)
@@ -2999,215 +2769,309 @@ select:-webkit-autofill {
 
     /* ===== Styles page Admin Compétitions (dark, cohérent avec competition-page) ===== */
 
-.admin-competitions {
-    max-width: 980px;
-    margin: 2rem auto;
-    background: var(--card, #131722);
-    border-radius: var(--radius, 14px);
-    box-shadow: var(--shadow-soft, 0 4px 14px rgba(0, 0, 0, .18));
-    padding: 2rem;
-    color: var(--text, #e6ebf2);
-}
+    .admin-competitions {
+        max-width: 980px;
+        margin: 2rem auto;
+        background: var(--card, #131722);
+        border-radius: var(--radius, 14px);
+        box-shadow: var(--shadow-soft, 0 4px 14px rgba(0, 0, 0, .18));
+        padding: 2rem;
+        color: var(--text, #e6ebf2);
+    }
 
-/* Titres */
-.admin-competitions h1 {
-    margin-bottom: 1.5rem;
-    font-size: clamp(26px, 3.5vw, 34px);
-    font-weight: 800;
-    color: var(--text, #e6ebf2);
-}
+    /* Titres */
+    .admin-competitions h1 {
+        margin-bottom: 1.5rem;
+        font-size: clamp(26px, 3.5vw, 34px);
+        font-weight: 800;
+        color: var(--text, #e6ebf2);
+    }
 
-/* Formulaire de recherche */
-.admin-search {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
+    /* Formulaire de recherche */
+    .admin-search {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-.admin-search input[type="text"] {
-    flex: 1;
-    padding: 0.6rem;
-    border: 1px solid var(--border, #1f2633);
-    border-radius: 8px;
-    background: #0e121b;
-    color: var(--text, #e6ebf2);
-}
+    .admin-search input[type="text"] {
+        flex: 1;
+        padding: 0.6rem;
+        border: 1px solid var(--border, #1f2633);
+        border-radius: 8px;
+        background: #0e121b;
+        color: var(--text, #e6ebf2);
+    }
 
-.admin-search button {
-    padding: 0.6rem 1rem;
-    background-color: var(--primary, #5b8cff);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: var(--shadow-soft);
-    transition: .2s;
-}
+    .admin-search button {
+        padding: 0.6rem 1rem;
+        background-color: var(--primary, #5b8cff);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow: var(--shadow-soft);
+        transition: .2s;
+    }
 
-.admin-search button:hover {
-    background-color: var(--primary-600, #4a78e6);
-    box-shadow: var(--shadow);
-}
+    .admin-search button:hover {
+        background-color: var(--primary-600, #4a78e6);
+        box-shadow: var(--shadow);
+    }
 
-/* Table */
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    color: var(--text, #e6ebf2);
-}
+    /* Table */
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text, #e6ebf2);
+    }
 
-.admin-table th,
-.admin-table td {
-    padding: 0.8rem;
-    border: 1px solid var(--border, #1f2633);
-    text-align: left;
-}
+    .admin-table th,
+    .admin-table td {
+        padding: 0.8rem;
+        border: 1px solid var(--border, #1f2633);
+        text-align: left;
+    }
 
-.admin-table th {
-    background-color: #1a1f2e;
-    font-weight: 700;
-}
+    .admin-table th {
+        background-color: #1a1f2e;
+        font-weight: 700;
+    }
 
-.admin-table tr {
-    background-color: #0f1115;
-}
+    .admin-table tr {
+        background-color: #0f1115;
+    }
 
-/* Actions */
-.admin-actions form {
-    display: inline;
-}
+    /* Actions */
+    .admin-actions form {
+        display: inline;
+    }
 
-.admin-actions button {
-    padding: 0.4rem 0.8rem;
-    background-color: var(--danger, #ff5c5c);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-}
+    .admin-actions button {
+        padding: 0.4rem 0.8rem;
+        background-color: var(--danger, #ff5c5c);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
 
-.admin-actions button:hover {
-    background-color: #b52a37;
-}
+    .admin-actions button:hover {
+        background-color: #b52a37;
+    }
 
-/* Formulaire d'édition */
-.admin-form {
-    display: grid;
-    gap: 1rem;
-}
+    /* Formulaire d'édition */
+    .admin-form {
+        display: grid;
+        gap: 1rem;
+    }
 
-.admin-form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: .35rem;
-    color: var(--text, #dbe2ee);
-}
+    .admin-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: .35rem;
+        color: var(--text, #dbe2ee);
+    }
 
-.admin-form input[type="text"],
-.admin-form input[type="email"],
-.admin-form input[type="datetime-local"],
-.admin-form textarea,
-.admin-form select {
-    width: 100%;
-    padding: .65rem .75rem;
-    border: 1px solid var(--border, #1f2633);
-    border-radius: 8px;
-    background: #0e121b;
-    color: var(--text, #e6ebf2);
-    outline: none;
-    transition: border-color .2s ease, box-shadow .2s ease;
-}
+    .admin-form input[type="text"],
+    .admin-form input[type="email"],
+    .admin-form input[type="datetime-local"],
+    .admin-form textarea,
+    .admin-form select {
+        width: 100%;
+        padding: .65rem .75rem;
+        border: 1px solid var(--border, #1f2633);
+        border-radius: 8px;
+        background: #0e121b;
+        color: var(--text, #e6ebf2);
+        outline: none;
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
 
-.admin-form input:focus,
-.admin-form textarea:focus,
-.admin-form select:focus {
-    border-color: var(--primary, #5b8cff);
-    box-shadow: var(--focus, 0 0 0 3px rgba(91, 140, 255, .25));
-}
+    .admin-form input:focus,
+    .admin-form textarea:focus,
+    .admin-form select:focus {
+        border-color: var(--primary, #5b8cff);
+        box-shadow: var(--focus, 0 0 0 3px rgba(91, 140, 255, .25));
+    }
 
-/* Zone actions */
-.admin-form-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .6rem;
-    margin-top: .5rem;
-}
+    /* Zone actions */
+    .admin-form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6rem;
+        margin-top: .5rem;
+    }
 
-/* Boutons */
-.btn,
-.btn-primary,
-.btn-secondary,
-.btn-warning,
-.btn-danger,
-.btn-link {
-    display: inline-block;
-    padding: .55rem .95rem;
-    border-radius: 8px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    line-height: 1.2;
-}
+    /* Boutons */
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-warning,
+    .btn-danger,
+    .btn-link {
+        display: inline-block;
+        padding: .55rem .95rem;
+        border-radius: 8px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        line-height: 1.2;
+    }
 
-.btn-primary {
-    background: var(--primary, #5b8cff);
-    color: #fff;
-}
+    .btn-primary {
+        background: var(--primary, #5b8cff);
+        color: #fff;
+    }
 
-.btn-primary:hover {
-    background: var(--primary-600, #4a78e6);
-}
+    .btn-primary:hover {
+        background: var(--primary-600, #4a78e6);
+    }
 
-.btn-warning {
-    background: #f59e0b;
-    color: #1a1d29;
-}
+    .btn-warning {
+        background: #f59e0b;
+        color: #1a1d29;
+    }
 
-.btn-warning:hover {
-    background: #d48809;
-}
+    .btn-warning:hover {
+        background: #d48809;
+    }
 
-.btn-danger {
-    background: var(--danger, #ff5c5c);
-    color: #fff;
-}
+    .btn-danger {
+        background: var(--danger, #ff5c5c);
+        color: #fff;
+    }
 
-.btn-danger:hover {
-    background: #b52a37;
-}
+    .btn-danger:hover {
+        background: #b52a37;
+    }
 
-.btn-secondary {
-    background: #2a2f3d;
-    color: var(--text, #e6ebf2);
-}
+    .btn-secondary {
+        background: #2a2f3d;
+        color: var(--text, #e6ebf2);
+    }
 
-.btn-secondary:hover {
-    background: #3a4052;
-}
+    .btn-secondary:hover {
+        background: #3a4052;
+    }
 
-.btn-link {
-    background: transparent;
-    color: var(--primary, #5b8cff);
-    padding: 0;
-}
+    .btn-link {
+        background: transparent;
+        color: var(--primary, #5b8cff);
+        padding: 0;
+    }
 
-.btn-link:hover {
-    text-decoration: underline;
-}
+    .btn-link:hover {
+        text-decoration: underline;
+    }
 
-/* Lien retour */
-.admin-back {
-    margin-top: 1rem;
-    display: inline-block;
-    color: var(--primary, #5b8cff);
-}
+    /* Lien retour */
+    .admin-back {
+        margin-top: 1rem;
+        display: inline-block;
+        color: var(--primary, #5b8cff);
+    }
 
-.admin-back:hover {
-    text-decoration: underline;
-}
+    .admin-back:hover {
+        text-decoration: underline;
+    }
 
-    
+
+    /* ===== Styles page Admin Utilisateurs ===== */
+    .admin-users {
+        max-width: 980px;
+        margin: 2rem auto;
+        background: var(--card, #131722);
+        border-radius: var(--radius, 14px);
+        box-shadow: var(--shadow-soft, 0 4px 14px rgba(0, 0, 0, .18));
+        padding: 2rem;
+        color: var(--text, #e6ebf2);
+    }
+
+    .admin-users h1 {
+        margin-bottom: 1.5rem;
+        font-size: clamp(26px, 3.5vw, 34px);
+        font-weight: 800;
+        color: var(--text, #e6ebf2);
+    }
+
+    .admin-users .admin-search {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .admin-users .admin-search input[type="text"] {
+        flex: 1;
+        padding: 0.6rem;
+        border: 1px solid var(--border, #1f2633);
+        border-radius: 8px;
+        background: #0e121b;
+        color: var(--text, #e6ebf2);
+    }
+
+    .admin-users .admin-search button {
+        padding: 0.6rem 1rem;
+        background-color: var(--primary, #5b8cff);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+    .admin-users .admin-search button:hover {
+        background-color: var(--primary-600, #4a78e6);
+    }
+
+    /* Tableau utilisateurs */
+    .admin-users .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text, #e6ebf2);
+    }
+
+    .admin-users .admin-table th,
+    .admin-users .admin-table td {
+        padding: 0.8rem;
+        border: 1px solid var(--border, #1f2633);
+        text-align: left;
+    }
+
+    .admin-users .admin-table th {
+        background-color: #1a1f2e;
+        font-weight: 700;
+    }
+
+    .admin-users .admin-table tr {
+        background-color: #0f1115;
+    }
+
+    .admin-users .admin-actions {
+        display: flex;
+        gap: .5rem;
+    }
+
+    .admin-users .admin-actions .btn {
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .admin-users .admin-actions .btn-warning {
+        background-color: #f59e0b;
+        color: #1a1d29;
+    }
+
+    .admin-users .admin-actions .btn-danger {
+        background-color: var(--danger, #ff5c5c);
+        color: #fff;
+    }
+
+
 }

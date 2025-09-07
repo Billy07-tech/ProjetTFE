@@ -1,55 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Utilisateurs{% endblock %}
+{% block title %}Utilisateurs
+{% endblock %}
 
 {% block body %}
-  <div class="users-container">
-    <div class="users-card">
+	<div class="admin-users">
+		<h1>Utilisateurs</h1>
 
-      <h1 class="users-title">Liste des Utilisateurs</h1>
+		<form method="get" action="{{ path('admin_users') }}" class="admin-search">
+			<input type="text" name="q" value="{{ q|default('') }}" placeholder="Rechercher un pseudo ou un email">
+			<button type="submit">Rechercher</button>
+		</form>
 
-      {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-      {% endfor %}
+		{% set utilisateurs = utilisateurs|default([]) %}
 
-      <div class="users-table-wrap">
-        <table class="users-table users-table--spacious">
-          <thead>
-            <tr>
-              <th class="users-col-id">Id</th>
-              <th class="users-col-pseudo">Pseudo</th>
-              <th class="users-col-prenom">Prénom</th>
-              <th class="users-col-nom">Nom</th>
-              <th class="users-col-email">Email</th>
-              <th class="users-col-roles">Rôles</th>
-              <th class="users-col-actions">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for utilisateur in utilisateurs %}
-              <tr>
-                <td class="users-col-id">{{ utilisateur.id }}</td>
-                <td class="users-col-pseudo">{{ utilisateur.pseudo }}</td>
-                <td class="users-col-prenom">{{ utilisateur.prenom }}</td>
-                <td class="users-col-nom">{{ utilisateur.nom }}</td>
-                <td class="users-col-email">{{ utilisateur.email }}</td>
-                <td class="users-col-roles">{{ utilisateur.roles|join(', ') }}</td>
-                <td class="users-col-actions">
-                  <form action="{{ path('admin_user_delete', {'id': utilisateur.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');" class="users-actions">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
-                    <button type="submit" class="users-btn users-btn--danger">Bannir</button>
-                  </form>
-                </td>
-              </tr>
-            {% else %}
-              <tr>
-                <td colspan="7" class="users-col-empty" style="text-align:center;">Aucun utilisateur trouvé</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
+		{% if utilisateurs is empty %}
+			<p>Aucun utilisateur trouvé.</p>
+		{% else %}
+			<table class="admin-table">
+				<thead>
+					<tr>
+						<th>Pseudo</th>
+						<th>Email</th>
+						<th>Rôles</th>
+						<th style="width:260px">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for u in utilisateurs %}
+						<tr>
+							<td>{{ u.pseudo }}</td>
+							<td>{{ u.email }}</td>
+							<td>
+								{% set roles = u.roles is iterable ? u.roles : (u.roles ? [u.roles] : []) %}
+								<span class="badge {{ 'ROLE_ADMIN' in roles ? 'badge-admin' : 'badge-user' }}">
+									{{ 'ROLE_ADMIN' in roles ? 'Admin' : 'Utilisateur' }}
+								</span>
+							</td>
+							<td class="admin-actions">
+								<form method="post" action="{{ path('admin_user_delete', {id: u.id}) }}" onsubmit="return confirm('Supprimer cet utilisateur ?');" style="display:inline">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ u.id) }}">
+									<button type="submit" class="btn btn-danger">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
 {% endblock %}

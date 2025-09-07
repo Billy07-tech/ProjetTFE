@@ -6,6 +6,12 @@
 <div class="admin-competitions">
     <h1>Compétitions</h1>
 
+    <div class="admin-form-actions" style="margin-bottom:1rem;">
+        <a href="{{ path('competition_new') }}" class="btn btn-primary">
+            + Créer une compétition
+        </a>
+    </div>
+
     <form method="get" action="{{ path('admin_competition_index') }}" class="admin-search">
         <input type="text" name="q" value="{{ q }}" placeholder="Rechercher un titre ou un lieu">
         <button type="submit">Rechercher</button>
@@ -30,10 +36,10 @@
                         <td>{{ c.lieu }}</td>
                         <td>{{ c.dateDebut ? c.dateDebut|date('d/m/Y') : '' }}</td>
                         <td class="admin-actions">
-                         <a href="{{ path('competition_edit', {id: c.id}) }}" class="btn-edit">Modifier</a>
+                            <a href="{{ path('competition_edit', {id: c.id}) }}" class="btn btn-warning">Modifier</a>
                             <form method="post" action="{{ path('admin_competition_delete', {id: c.id}) }}" onsubmit="return confirm('Supprimer ?');">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete_competition_' ~ c.id) }}">
-                                <button type="submit">Supprimer</button>
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>
                     </tr>
