@@ -2997,240 +2997,217 @@ select:-webkit-autofill {
         background-color: var(--accent-2, #642463);
     }
 
-    /* ===== Styles page Compétitions ===== */
+    /* ===== Styles page Admin Compétitions (dark, cohérent avec competition-page) ===== */
 
-    .admin-competitions {
-        max-width: 900px;
-        margin: 2rem auto;
-        background: var(--card, #fff);
-        border-radius: var(--radius, 12px);
-        box-shadow: var(--shadow, 0 4px 12px rgba(0, 0, 0, .1));
-        padding: 2rem;
-        color: #ffffff;
-    }
+.admin-competitions {
+    max-width: 980px;
+    margin: 2rem auto;
+    background: var(--card, #131722);
+    border-radius: var(--radius, 14px);
+    box-shadow: var(--shadow-soft, 0 4px 14px rgba(0, 0, 0, .18));
+    padding: 2rem;
+    color: var(--text, #e6ebf2);
+}
 
-    .admin-competitions h1 {
-        margin-bottom: 1.5rem;
-        font-size: 1.8rem;
-        color: #291a28;
-    }
+/* Titres */
+.admin-competitions h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(26px, 3.5vw, 34px);
+    font-weight: 800;
+    color: var(--text, #e6ebf2);
+}
 
-    /* Formulaire de recherche */
-    .admin-search {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
+/* Formulaire de recherche */
+.admin-search {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
 
-    .admin-search input[type="text"] {
-        flex: 1;
-        padding: 0.6rem;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-    }
+.admin-search input[type="text"] {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid var(--border, #1f2633);
+    border-radius: 8px;
+    background: #0e121b;
+    color: var(--text, #e6ebf2);
+}
 
-    .admin-search button {
-        padding: 0.6rem 1rem;
-        background-color: var(--accent, #c62828);
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-    }
+.admin-search button {
+    padding: 0.6rem 1rem;
+    background-color: var(--primary, #5b8cff);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: var(--shadow-soft);
+    transition: .2s;
+}
 
-    .admin-search button:hover {
-        background-color: var(--accent-2, #ffd700);
-        color: var(--text, #1a1d29);
-    }
+.admin-search button:hover {
+    background-color: var(--primary-600, #4a78e6);
+    box-shadow: var(--shadow);
+}
 
-    .admin-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+/* Table */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text, #e6ebf2);
+}
 
-    .admin-table th,
-    .admin-table td {
-        padding: 0.8rem;
-        border: 1px solid #ffffff;
-        text-align: left;
-    }
+.admin-table th,
+.admin-table td {
+    padding: 0.8rem;
+    border: 1px solid var(--border, #1f2633);
+    text-align: left;
+}
 
-    .admin-table th {
-        background-color: #2c1745;
-    }
+.admin-table th {
+    background-color: #1a1f2e;
+    font-weight: 700;
+}
 
-    .admin-table tr {
-        background-color: #2c1745;
-    }
+.admin-table tr {
+    background-color: #0f1115;
+}
 
-    /* Actions */
-    .admin-actions form {
-        display: inline;
-    }
+/* Actions */
+.admin-actions form {
+    display: inline;
+}
 
-    .admin-actions button {
-        padding: 0.4rem 0.8rem;
-        background-color: #dc3545;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+.admin-actions button {
+    padding: 0.4rem 0.8rem;
+    background-color: var(--danger, #ff5c5c);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-    .admin-actions button:hover {
-        background-color: #b52a37;
-    }
+.admin-actions button:hover {
+    background-color: #b52a37;
+}
 
-    /* ===== Page Edition Compétition ===== */
-    .admin-competitions {
-        /* même conteneur que la liste, pour cohérence */
-        max-width: 900px;
-        margin: 2rem auto;
-        background: var(--card, #fff);
-        border-radius: var(--radius, 12px);
-        box-shadow: var(--shadow, 0 4px 12px rgba(0, 0, 0, .1));
-        padding: 2rem;
-    }
+/* Formulaire d'édition */
+.admin-form {
+    display: grid;
+    gap: 1rem;
+}
 
-    .admin-competitions h1 {
-        margin-bottom: 1.25rem;
-        font-size: 1.8rem;
-        color: var(--text, #1a1d29);
-    }
+.admin-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .35rem;
+    color: var(--text, #dbe2ee);
+}
 
-    /* Formulaire d'édition */
-    .admin-form {
-        display: grid;
-        gap: 1rem;
-    }
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="datetime-local"],
+.admin-form textarea,
+.admin-form select {
+    width: 100%;
+    padding: .65rem .75rem;
+    border: 1px solid var(--border, #1f2633);
+    border-radius: 8px;
+    background: #0e121b;
+    color: var(--text, #e6ebf2);
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
 
-    .admin-form .form-row,
-    .admin-form .form-group,
-    .admin-form .form-widget {
-        /* classes générées par Symfony/Twig */
-        display: block;
-    }
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+    border-color: var(--primary, #5b8cff);
+    box-shadow: var(--focus, 0 0 0 3px rgba(91, 140, 255, .25));
+}
 
-    .admin-form label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: .35rem;
-        color: var(--text, #1a1d29);
-    }
+/* Zone actions */
+.admin-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-top: .5rem;
+}
 
-    .admin-form input[type="text"],
-    .admin-form input[type="email"],
-    .admin-form input[type="datetime-local"],
-    .admin-form textarea,
-    .admin-form select {
-        width: 100%;
-        padding: .65rem .75rem;
-        border: 1px solid #cfd3d9;
-        border-radius: 8px;
-        background: #fff;
-        color: #1a1d29;
-        outline: none;
-        transition: box-shadow .2s ease, border-color .2s ease;
-    }
+/* Boutons */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-warning,
+.btn-danger,
+.btn-link {
+    display: inline-block;
+    padding: .55rem .95rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.2;
+}
 
-    .admin-form input:focus,
-    .admin-form textarea:focus,
-    .admin-form select:focus {
-        border-color: #1976d2;
-        box-shadow: 0 0 0 3px rgba(25, 118, 210, .15);
-    }
+.btn-primary {
+    background: var(--primary, #5b8cff);
+    color: #fff;
+}
 
-    /* Zone actions (enregistrer / supprimer / retour) */
-    .admin-form-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: .6rem;
-        margin-top: .5rem;
-    }
+.btn-primary:hover {
+    background: var(--primary-600, #4a78e6);
+}
 
-    /* Boutons cohérents site */
-    .btn,
-    .btn-primary,
-    .btn-secondary,
-    .btn-warning,
-    .btn-danger,
-    .btn-link {
-        display: inline-block;
-        padding: .55rem .95rem;
-        border-radius: 8px;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        line-height: 1.2;
-    }
+.btn-warning {
+    background: #f59e0b;
+    color: #1a1d29;
+}
 
-    .btn-warning {
-        background: #f59e0b;
-        color: #1a1d29;
-    }
+.btn-warning:hover {
+    background: #d48809;
+}
 
-    .btn-warning:hover {
-        background: #d48809;
-    }
+.btn-danger {
+    background: var(--danger, #ff5c5c);
+    color: #fff;
+}
 
-    .btn-danger {
-        background: #dc3545;
-        color: #fff;
-    }
+.btn-danger:hover {
+    background: #b52a37;
+}
 
-    .btn-danger:hover {
-        background: #b52a37;
-    }
+.btn-secondary {
+    background: #2a2f3d;
+    color: var(--text, #e6ebf2);
+}
 
-    .btn-secondary {
-        background: #e9ecef;
-        color: #1a1d29;
-    }
+.btn-secondary:hover {
+    background: #3a4052;
+}
 
-    .btn-secondary:hover {
-        background: #dfe3e6;
-    }
+.btn-link {
+    background: transparent;
+    color: var(--primary, #5b8cff);
+    padding: 0;
+}
 
-    .btn-link {
-        background: transparent;
-        color: #1976d2;
-        padding: 0;
-    }
+.btn-link:hover {
+    text-decoration: underline;
+}
 
-    .btn-link:hover {
-        text-decoration: underline;
-    }
+/* Lien retour */
+.admin-back {
+    margin-top: 1rem;
+    display: inline-block;
+    color: var(--primary, #5b8cff);
+}
 
-    /* Ligne supprimer alignée à côté du bouton enregistrer */
-    .inline-delete {
-        display: inline-block;
-    }
+.admin-back:hover {
+    text-decoration: underline;
+}
 
-    /* Messages & retours */
-    .admin-back {
-        margin-top: 1rem;
-        display: inline-block;
-        color: #1976d2;
-    }
-
-    .admin-back:hover {
-        text-decoration: underline;
-    }
-
-    /* Petites aides de mise en page */
-    .mt-1 {
-        margin-top: .25rem;
-    }
-
-    .mt-2 {
-        margin-top: .5rem;
-    }
-
-    .mt-3 {
-        margin-top: 1rem;
-    }
-
-
-
+    
 }

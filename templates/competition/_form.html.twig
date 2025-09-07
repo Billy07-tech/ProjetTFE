@@ -1,0 +1,19 @@
+{# templates/competition/_form.html.twig #}
+{{ form_start(form, {'attr': {'class': 'competition-form'}}) }}
+
+{% for child in form %}
+    {# on évite d’afficher le token comme un champ classique #}
+    {% if child.vars.name != '_token' %}
+        <div class="form-group">
+            {{ form_label(child) }}
+            {{ form_widget(child, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(child) }}
+        </div>
+    {% endif %}
+{% endfor %}
+
+<button class="btn btn-primary">
+  {{ button_label|default('Enregistrer') }}
+</button>
+
+{{ form_end(form) }}

@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier {{ comp.titre }}{% endblock %}
+{% block title %}Modifier
+	{{ comp.titre }}
+{% endblock %}
 
 {% block body %}
-<div class="admin-competitions">
-  <h1>Modifier la compétition : {{ comp.titre }}</h1>
+	<div class="admin-competitions">
+		<h1>Modifier la compétition :
+			{{ comp.titre }}</h1>
 
-  {{ form_start(form, {'attr': {'class': 'admin-form'}}) }}
-    {{ form_row(form.titre) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.lieu) }}
-    {{ form_row(form.dateDebut) }}
-    {{ form_row(form.dateFin) }}
+		{{ form_start(form, {'attr': {'class': 'admin-form'}}) }}
+		{{ form_row(form.titre) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.lieu) }}
+		{{ form_row(form.dateDebut) }}
+		{{ form_row(form.dateFin) }}
 
-    <div class="admin-form-actions">
-      <button class="btn btn-warning">Enregistrer les modifications</button>
+		<div class="admin-form-actions">
+			<button class="btn btn-warning">Enregistrer les modifications</button>
 
-      {% if is_granted('ROLE_ADMIN') %}
-        <form class="inline-delete"
-              method="post"
-              action="{{ path('competition_delete', { id: comp.id }) }}"
-              onsubmit="return confirm('Supprimer définitivement cette compétition ?');">
-          <input type="hidden" name="_token" value="{{ csrf_token('delete_competition_' ~ comp.id) }}">
-          <button class="btn btn-danger">Supprimer</button>
-        </form>
-      {% endif %}
+			{% if is_granted('ROLE_ADMIN') %}
+				<form class="inline-delete" method="post" action="{{ path('competition_delete', { id: comp.id }) }}" onsubmit="return confirm('Supprimer définitivement cette compétition ?');">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete_competition_' ~ comp.id) }}">
+					<button class="btn btn-danger">Supprimer</button>
+				</form>
+			{% endif %}
 
-      <a href="{{ path('competition_calendrier') }}" class="btn btn-secondary">Retour</a>
-    </div>
-  {{ form_end(form) }}
+			<a href="{{ path('admin_competition_index') }}" class="btn btn-secondary">
+				← Retour à la liste des compétitions
+			</a>
 
-  <a href="{{ path('competition_calendrier') }}" class="admin-back mt-2">← Retour au calendrier</a>
-</div>
-{% endblock %}
+			{{ form_end(form) }}
+
+	{% endblock %}
