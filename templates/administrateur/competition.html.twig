@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compétitions{% endblock %}
+
+{% block body %}
+<div class="admin-competitions">
+    <h1>Compétitions</h1>
+
+    <form method="get" action="{{ path('admin_competition_index') }}" class="admin-search">
+        <input type="text" name="q" value="{{ q }}" placeholder="Rechercher un titre ou un lieu">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    {% if competitions is empty %}
+        <p>Aucune compétition trouvée.</p>
+    {% else %}
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Date début</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in competitions %}
+                    <tr>
+                        <td>{{ c.titre }}</td>
+                        <td>{{ c.lieu }}</td>
+                        <td>{{ c.dateDebut ? c.dateDebut|date('d/m/Y') : '' }}</td>
+                        <td class="admin-actions">
+                         <a href="{{ path('competition_edit', {id: c.id}) }}" class="btn-edit">Modifier</a>
+                            <form method="post" action="{{ path('admin_competition_delete', {id: c.id}) }}" onsubmit="return confirm('Supprimer ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete_competition_' ~ c.id) }}">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

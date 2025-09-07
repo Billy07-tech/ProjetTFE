@@ -3,42 +3,14 @@
 {% block title %}Tableau de Bord
 {% endblock %}
 
-{% block stylesheets %}
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: flex-start;
-			height: 100vh;
-		}
-
-		.tableau-administrateur {
-			max-width: 400px;
-			text-align: center;
-		}
-
-		.lien {
-			display: block;
-			margin-bottom: 10px;
-			text-decoration: none;
-			color: black;
-			background-color: #f0f0f0;
-			padding: 10px;
-			border-radius: 5px;
-		}
-
-		.lien:hover {
-			background-color: #ddd;
-		}
-	</style>
-{% endblock %}
-
 {% block body %}
-	<div class="container">
-		<div class="tableau-administrateur">
+	<div class="admin-container">
+		<div class="admin-dashboard">
 			<h1>Tableau administrateur</h1>
-			<a class="lien" href="{{ path('app_utilisateur') }}">Membres</a>
-			<a class="lien" href="{{ path('app_demande_assistance') }}">Demandes d'assistance</a>
+			<a class="admin-link" href="{{ path('admin_users') }}">Membres</a>
+			<a class="admin-link" href="{{ path('admin_assistance') }}">Demandes d'assistance</a>
+			<a class="admin-link" href="{{ path('admin_competition_index') }}">Calendrier</a>
 		</div>
 	</div>
+
 {% endblock %}

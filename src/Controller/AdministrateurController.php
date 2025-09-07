@@ -2,35 +2,30 @@
 
 namespace App\Controller;
 
+use App\Entity\Utilisateur;
+use App\Entity\Competition;
 use App\Repository\UtilisateurRepository;
 use App\Repository\AssistanceRepository;
+use App\Repository\CompetitionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * @Route("/admin", name="app_administrateur")
- * @IsGranted("ROLE_ADMIN")
- */
-#[Route('/administrateur')]
+#[Route('/admin', name: 'admin_')]
+#[IsGranted('ROLE_ADMIN')]
 class AdministrateurController extends AbstractController
 {
-    #[Route('/', name: 'app_administrateur')]
-    public function index(): Response
+    // Tableau de bord
+    #[Route('', name: 'dashboard', methods: ['GET'])]
+    public function dashboard(): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException('Accès refusé.');
-        }
-
         return $this->render('administrateur/index.html.twig');
     }
 
-    #[Route('/assistance', name: 'app_demande_assistance')]
+    #[Route('/app_demande_assistance', name: 'assistance', methods: ['GET'])]
     public function assistance(AssistanceRepository $assistanceRepository): Response
     {
         return $this->render('administrateur/liste_demandes_assistance.html.twig', [
@@ -38,32 +33,73 @@ class AdministrateurController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateur', name: 'app_utilisateur')]
-    public function utilisateur(UtilisateurRepository $utilisateurRepository): Response
+    // Liste des utilisateurs
+    #[Route('/app_utilisateur', name: 'users', methods: ['GET'])]
+    public function users(UtilisateurRepository $utilisateurRepository): Response
     {
         return $this->render('administrateur/utilisateur.html.twig', [
             'utilisateurs' => $utilisateurRepository->findAll(),
         ]);
     }
 
-   #[Route('/utilisateur/supprimer/{id}', name: 'app_utilisateur_supprimer', methods: ['POST'])]
-    public function supprimerUtilisateur(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    // Suppression d'un utilisateur (CSRF + on empêche l'auto-suppression)
+    #[Route('/utilisateurs/{id<\d+>}/delete', name: 'user_delete', methods: ['POST'])]
+    public function deleteUser(Request $request, Utilisateur $utilisateur, EntityManagerInterface $em): Response
     {
-        // Empêche l'admin de se supprimer lui-même
         if ($utilisateur === $this->getUser()) {
             $this->addFlash('danger', 'Vous ne pouvez pas supprimer votre propre compte.');
-            return $this->redirectToRoute('app_utilisateur');
+            return $this->redirectToRoute('admin_users');
         }
 
-        if (!$this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('delete' . $utilisateur->getId(), (string) $request->request->get('_token'))) {
             throw $this->createAccessDeniedException('Token CSRF invalide.');
         }
 
-        $entityManager->remove($utilisateur);
-        $entityManager->flush();
+        $em->remove($utilisateur);
+        $em->flush();
 
         $this->addFlash('success', 'Utilisateur supprimé avec succès.');
+        return $this->redirectToRoute('admin_users');
+    }
 
-        return $this->redirectToRoute('app_utilisateur');
+    // Compétitions : liste + petite recherche
+    #[Route('/competitions', name: 'competition_index', methods: ['GET'])]
+    public function competitionsIndex(Request $request, CompetitionRepository $repo): Response
+    {
+        $q = trim((string) $request->query->get('q', ''));
+
+        if ($q !== '') {
+            $competitions = $repo->createQueryBuilder('c')
+                ->where('LOWER(c.titre) LIKE :q OR LOWER(c.lieu) LIKE :q')
+                ->setParameter('q', '%' . mb_strtolower($q) . '%')
+                ->orderBy('c.dateDebut', 'DESC')
+                ->getQuery()->getResult();
+        } else {
+            $competitions = $repo->createQueryBuilder('c')
+                ->orderBy('c.dateDebut', 'DESC')
+                ->getQuery()->getResult();
+        }
+
+        return $this->render('administrateur/competition.html.twig', [
+            'competitions' => $competitions,
+            'q'            => $q,
+        ]);
+    }
+
+    
+    // Suppression d'une compétition (CSRF)
+    #[Route('/competitions/{id<\d+>}/delete', name: 'competition_delete', methods: ['POST'])]
+    public function deleteCompetition(Request $request, Competition $comp, EntityManagerInterface $em): Response
+    {
+        if (!$this->isCsrfTokenValid('delete_competition_' . $comp->getId(), (string) $request->request->get('_token'))) {
+            $this->addFlash('error', 'Action interdite (token CSRF invalide).');
+            return $this->redirectToRoute('admin_competition_index');
+        }
+
+        $em->remove($comp);
+        $em->flush();
+
+        $this->addFlash('success', 'Compétition supprimée.');
+        return $this->redirectToRoute('admin_competition_index');
     }
 }

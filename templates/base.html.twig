@@ -24,6 +24,7 @@
 					</a>
 
 					<a href="{{ path('app_article_index') }}">Actualités</a>
+					<a href="{{ path('competition_calendrier') }}">Calendrier</a>
 					<a href="{{ path('app_produit_index') }}">Boutique</a>
 					<a href="{{ path('app_regle') }}">Règles</a>
 
@@ -34,7 +35,7 @@
 						<a href="{{ path('_logout_main') }}">Se déconnecter</a>
 
 						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('app_administrateur') }}">Administration</a>
+							<a href="{{ path('admin_dashboard') }}">Admin</a>
 						{% endif %}
 					{% endif %}
 

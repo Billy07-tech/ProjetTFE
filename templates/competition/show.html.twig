@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	{{ comp.titre }}
+{% endblock %}
+{% block body %}
+	<h1>{{ comp.titre }}</h1>
+	<p>
+		<strong>Lieu :</strong>
+		{{ comp.lieu ?? '—' }}</p>
+	<p>
+		<strong>Début :</strong>
+		{{ comp.dateDebut|date('d/m/Y H:i') }}</p>
+	<p>
+		<strong>Fin :</strong>
+		{{ comp.dateFin|date('d/m/Y H:i') }}</p>
+	<p>{{ comp.description }}</p>
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<form method="post" action="{{ path('competition_delete', {id: comp.id}) }}" onsubmit="return confirm('Supprimer définitivement cette compétition ?');" style="display:inline-block">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete_competition_' ~ comp.id) }}">
+			<button class="btn btn-danger">Supprimer</button>
+		</form>
+	{% endif %}
+
+	<a href="{{ path('competition_calendrier') }}">Retour au calendrier</a>
+{% endblock %}

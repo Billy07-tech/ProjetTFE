@@ -2,10 +2,6 @@
 
 {% block title %}Liste des Utilisateurs{% endblock %}
 
-{% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('css/users.css') }}?v={{ random() }}">
-{% endblock %}
-
 {% block body %}
   <div class="users-container">
     <div class="users-card">
@@ -39,7 +35,7 @@
                 <td class="users-col-email">{{ utilisateur.email }}</td>
                 <td class="users-col-roles">{{ utilisateur.roles|join(', ') }}</td>
                 <td class="users-col-actions">
-                  <form action="{{ path('app_utilisateur_supprimer', {'id': utilisateur.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');" class="users-actions">
+                  <form action="{{ path('admin_user_delete', {'id': utilisateur.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');" class="users-actions">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
                     <button type="submit" class="users-btn users-btn--danger">Bannir</button>
                   </form>
