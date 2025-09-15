@@ -1,4 +1,3 @@
-{% set app_name = app_name is defined ? app_name : 'Checkers Elite' %}
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -18,10 +17,9 @@
 		<body class="layout">
 			<header class="header">
 				<div class="container nav">
-					<a class="brand" href="{{ path('app_accueil') }}">
-						<div class="brand-badge">C</div>
-						<span class="brand-name">{{ app_name }}</span>
-					</a>
+
+					<img src="{{ asset('nova/img/logo-icon.svg') }}" alt="{{ app_name }}" class="brand-logo" style="height:40px; width:auto;">
+
 
 					<a href="{{ path('app_article_index') }}">Actualités</a>
 					<a href="{{ path('competition_calendrier') }}">Calendrier</a>

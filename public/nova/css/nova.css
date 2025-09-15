@@ -81,6 +81,9 @@
     display: block;
 }
 
+html {
+    font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
 
 html,
 body {
@@ -95,9 +98,14 @@ body {
     min-height: 100vh;
     background: radial-gradient(1200px 800px at 80% -20%, rgba(159, 108, 255, .08), transparent 60%), var(--bg);
     color: var(--text);
-    font: 16px/1.5 Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px; 
+    line-height: 1.5; 
 }
 
+.brand-logo {
+    height: 60px;   
+    width: auto;
+}
 
 a {
     color: var(--brand);
@@ -902,7 +910,6 @@ select:-webkit-autofill {
         transform: translateY(-1px);
     }
 
-    /* Style du bouton "Connectez-vous" sans toucher ton Twig (cible le lien vers app_login) */
     .add-to-cart-form a[href*="app_login"] {
         background: linear-gradient(135deg, #ffd976, #ffc107);
         color: #111528 !important;
